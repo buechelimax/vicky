@@ -309,6 +309,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .flight .icon { width: 1.3em; height: 1.3em; color: var(--rose); }
 .count-note { text-align: center; color: var(--muted); margin: 4px 0 0; }
 /* ---------- The picture book ---------- */
+.zoom-layer { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; padding: 16px; background: rgba(16, 20, 42, .88); cursor: zoom-out; }
+.zoom-layer[hidden] { display: none; }
+.zoom-layer img { max-width: 100%; max-height: 100%; object-fit: contain; border: 6px solid #ffffff; border-radius: 3px; box-shadow: 0 10px 40px rgba(0, 0, 0, .45); }
+.zoom-close { position: absolute; top: 14px; right: 14px; }
+.ph img { cursor: zoom-in; }
 .book-layer { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; align-content: center; gap: 14px; padding: 16px; }
 .book-backdrop { position: absolute; inset: 0; background: rgba(16, 20, 42, 0.62); }
 .book {
@@ -362,7 +367,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
   background-attachment: local;
   border-left: 3px double rgba(196, 82, 122, .45);
   font-size: clamp(.7rem, 1.08vw, .92rem); line-height: 1.4em; }
-.book.single .insert { font-size: clamp(.8rem, 3.3vw, .98rem); }
+.book.single .insert { font-size: clamp(.8rem, 3.3vw, .98rem); padding: 7% 6% 5% 8%; }
+.book.single .page.intro-page { padding: 5% 4%; }
+.insert { overscroll-behavior: contain; }
 .tape-l, .tape-r { position: absolute; top: 0; width: 64px; height: 18px; pointer-events: none; z-index: 2;
   background: repeating-linear-gradient(45deg, rgba(169, 197, 227, .9) 0 6px, rgba(214, 228, 243, .9) 6px 12px); }
 .tape-l { left: 0; transform: translate(-28%, -10%) rotate(-36deg); }
@@ -1331,6 +1338,10 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
 </footer>
 
 <!-- THE PICTURE BOOK -->
+<div class="zoom-layer" id="zoom" hidden>
+  <img id="zoom-img" alt="">
+  <button type="button" class="phone-close zoom-close" id="zoom-close" aria-label="Close the photo">&times;</button>
+</div>
 <div class="book-layer" id="book-layer" hidden>
   <div class="book-backdrop" id="book-backdrop"></div>
   <div class="book" id="book" role="dialog" aria-label="Our picture book">
@@ -1484,6 +1495,8 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   }
   var drag = null;
   sky.querySelectorAll(".orb").forEach(function (orb) {
+    /* Phones: stop the page from scrolling when a finger starts on the sun or moon */
+    orb.addEventListener("touchstart", function (e) { e.preventDefault(); }, { passive: false });
     orb.addEventListener("pointerdown", function (e) {
       e.preventDefault();
       orb.setPointerCapture(e.pointerId);
@@ -1497,7 +1510,10 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
       var delta = pointerAngle(e) - drag.start;
       if (delta > 180) delta -= 360;
       if (delta < -180) delta += 360;
-      angle = drag.from + delta;
+      /* Dragging straight down barely changes the angle at the top of the arc, so a downward pull counts too */
+      var down = Math.max(0, e.clientY - drag.y) * 0.35;
+      if (down > Math.abs(delta)) delta = delta < 0 ? -down : down;
+      angle = drag.from + Math.max(-90, Math.min(90, delta));
       turn(angle);
     });
     function end() {
@@ -1909,7 +1925,16 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
       $("book-where").textContent = (k + 1) + " / " + (lastSpread + 1);
       $("book-prev").disabled = k === 0; $("book-next").disabled = k === lastSpread;
     }
+    fitNote();
   }
+  /* The intro note: make the writing smaller until the whole note fits on the page */
+  function fitNote() {
+    var n = spreadEl.querySelector(".insert"); if (!n) return;
+    n.style.fontSize = "";
+    var fs = parseFloat(getComputedStyle(n).fontSize);
+    while (n.scrollHeight > n.clientHeight + 1 && fs > 8.5) { fs -= 0.25; n.style.fontSize = fs + "px"; }
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!$("book-layer").hidden) fitNote(); });
   function turnPage(dir) {
     if (turning) return;
     if (single) {
@@ -1944,6 +1969,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   function openBook(start) {
     bookFocus = document.activeElement; at = typeof start === "number" ? start : 0; renderBook();
     $("book-layer").hidden = false; document.body.style.overflow = "hidden"; $("book-next").focus();
+    fitNote();
   }
   function closeBook() {
     $("book-layer").hidden = true; document.body.style.overflow = "";
@@ -1954,6 +1980,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   document.addEventListener("keydown", function (e) {
     if ($("book-layer").hidden) return;
     if (/^(TEXTAREA|INPUT)$/.test(e.target.tagName)) return;
+    if (!$("zoom").hidden) { if (e.key === "Escape") closeZoom(); return; }
     if (e.key === "Escape") closeBook();
     if (e.key === "ArrowRight") turnPage(1);
     if (e.key === "ArrowLeft") turnPage(-1);
@@ -1973,6 +2000,13 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
         .catch(function () { q.disabled = false; q.textContent = "Didn't save, try again"; });
     }
   });
+  /* Tap a photo in the book to see all of it */
+  spreadEl.addEventListener("click", function (e) {
+    var im = e.target.closest(".ph img"); if (!im) return;
+    $("zoom-img").src = im.getAttribute("src"); $("zoom").hidden = false;
+  });
+  function closeZoom() { $("zoom").hidden = true; $("zoom-img").removeAttribute("src"); }
+  $("zoom").addEventListener("click", closeZoom);
   /* Videos in the book: tap to play with sound, tap again to pause */
   spreadEl.addEventListener("click", function (e) {
     var box = e.target.closest(".vid"); if (!box) return;
