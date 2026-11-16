@@ -1733,14 +1733,8 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     { d: 13, time: "09:12", text: "fill in ur text here" },              /* 29 Nov */
     { d: 15, time: "08:05", text: "fill in ur text here" },              /* 1 Dec */
     { d: 17, time: "20:15", text: "fill in ur text here", photo: 39 },   /* 3 Dec */
-    { d: 19, time: "12:05", text: "fill in ur text here" },              /* 5 Dec */
-    { d: 20, time: "08:30", text: "fill in ur text here", photo: 88 },   /* 6 Dec */
     { d: 21, time: "21:30", text: "fill in ur text here" },              /* 7 Dec */
-    { d: 22, time: "16:22", text: "fill in ur text here" },              /* 8 Dec */
-    { d: 23, time: "11:48", text: "fill in ur text here" },              /* 9 Dec */
     { d: 24, time: "20:15", text: "fill in ur text here", photo: 84 },   /* 10 Dec */
-    { d: 26, time: "21:03", text: "fill in ur text here" },              /* 12 Dec */
-    { d: 27, time: "10:10", text: "fill in ur text here" },              /* 13 Dec */
     { d: 28, time: "20:00", text: "fill in ur text here" }               /* 14 Dec */
   ];
   /* Photos already on the phone from the start (the ones not in the book or in a message) */
@@ -2168,7 +2162,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
       }).filter(Boolean);
       if (lines.length) { LINES = lines; line = 0; syncBubble(); }
     }
-    buildChat();
+    syncNotes();
     if (!$("book-layer").hidden) renderBook();
   }
   fetch("texts.txt", { cache: "no-store" }).then(function (r) { return r.ok ? r.text() : ""; }).then(function (raw) { if (raw) applyTexts(readTexts(raw)); }).catch(function () {});
