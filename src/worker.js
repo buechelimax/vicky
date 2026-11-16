@@ -10,7 +10,7 @@ const SEED = [
   {
     word: "double cheeked up on a thursday afternoon",
     kind: "phrase",
-    meaning: "fill in ur text here",
+    meaning: "Having a really big butt. From a 2020 meme.",
     also: "double cheeked up, cheeked up, on a thursday afternoon"
   },
   {
@@ -45,6 +45,10 @@ export class Dictionary extends DurableObject {
         this.sql.exec("INSERT INTO words (word, kind, meaning, also, by, status, created) VALUES (?, ?, ?, ?, 'noemi', 'ok', ?)",
           w.word, w.kind, w.meaning, w.also, Date.now());
       }
+    }
+    // Fill in meanings that were still placeholders when the database was first made
+    for (const w of SEED) {
+      this.sql.exec("UPDATE words SET meaning = ? WHERE word = ? AND meaning = 'fill in ur text here'", w.meaning, w.word);
     }
   }
   rows(status) {
