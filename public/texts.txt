@@ -24,127 +24,138 @@ love, your boo
 
 # page 1: Alkaff Mansion (013, 011)
 [page 1]
-fill in ur text here
+the infamous exchange student party - where your chinese dick streak started
 
-# page 2: Alkaff Mansion (007, 009)
+# page 2: Alkaff Mansion with Hayden (005, 007, 009)
 [page 2]
-fill in ur text here
+it is ridiculous i took this cheeked up pic with hayden instead of you lmao. at least we have one that proves we all know each other
 
-# page 3: Merlion, Marina Bay, hawker centre (gagi, 016, 018)
+# page 3: Tour across Singapore (gagi, 016, 018)
 [page 3]
-fill in ur text here
+remember the tour accross singapore? we looked so innocent, and swiss and turkish guy looked lowkey hot af in that washed down hawker center
 
-# page 4: Night walk, Marina Bay Sands (video 2, 045, 043)
+# page 4: First prosecco night (video 2, 045, 043)
 [page 4]
-fill in ur text here
+our first prosecco night in peak smog, i wish i could relive it even though we walked for 5 bazillion hours
 
 # page 5: The field with the skyline (038, 036, 026)
 [page 5]
-fill in ur text here
+we do be smogging 😭
 
-# page 6: Rooftop pool (042, 041)
+# page 6: Cracker party (041)
 [page 6]
-fill in ur text here
+most perverted cracker party ever
 
-# page 7: Nails day (050, 049)
+# page 7: The views (042, 003)
 [page 7]
-fill in ur text here
+the views were immaculate tho lmao
 
-# page 8: Welcome party (005, 006)
+# page 8: Nails day (050, 049)
 [page 8]
-fill in ur text here
+do you think they sold the skin of my feet to hawker center as swiss cheese?
 
 # page 9: Lace night out (084, 077, 073)
 [page 9]
-fill in ur text here
+craziest mogging streak
 
-# page 10: Costumes (066, 064, 053)
+# page 10: Pirate night (066, 064, 055)
 [page 10]
-fill in ur text here
+hottest pirate among ugliest singaporeans - no treasure except cigarettes have been found
 
 # page 11: View from the top (061, 057, 051)
 [page 11]
-fill in ur text here
+only you and singapore were serving that night.. and me ofc.
 
 # page 12: Street and mirror selfies (034, 033, 031)
 [page 12]
-fill in ur text here
+i miss you a lot you know
 
 # page 13: Prosecco club (030, 029, 028)
 [page 13]
-fill in ur text here
+and the prosecco too ngl
 
 # page 14: Campus days (024, 022, 020)
 [page 14]
-fill in ur text here
+discovering ice cream was so important too
 
 # page 15: Red club lights (video 1, 015, 004)
 [page 15]
-fill in ur text here
+... but discovering you was even more important
 
 # page 16: Friends (012, 008)
 [page 16]
-fill in ur text here
+lowkey most goated singaporeans??
 
-# page 17: Rooftop bar (003, 001)
+# page 17: Perfect match (069, 001)
 [page 17]
-fill in ur text here
+youre like my perfect match! (remember having lunch with kotaro and your roomie XD)
 
-# page 18: Dinner, the last page (093, 097, 100)
+# page 18: The last page (093, 097, 100)
 [page 18]
-fill in ur text here
+i will never forget how you saved me on my first and on my last day, this is symbolic for this entire exchange and i hope you know that you ARRRRR the treasure i was looking for.
 
 # The last page, after all the photos
 [end]
-this is the end. thank you for making this exchange not only funny, memorable and meaningful, but also something i can look back on until the end of days
+this is the end. thank you for making this exchange not only funny, memorable and meaningful, but also something i will cherish until the end of time. I love you lots, pwincess
 
 # The two lines from the poem go here (paste them in yourself). They show at the bottom of the last page, under a thin line.
 [end quote]
 
 
-[back]
-fill in ur text here
-
 # ---------- Messages from Noemi (they arrive on these days) ----------
-# 29 November
+# A message that still says "fill in ur text here" is never sent to Vicky; it only shows in the #preview view.
+
+# 20 November (comes with photo 087)
+[message 20 November]
+cant wait for ur china lore, may the chinese fuckboys be handsome and coming onto you like me in this pic
+
+# 29 November 
 [message 29 November]
-fill in ur text here
+hey boo, hope youre holding up allright. already 2 weeks have passed and soon youre going back home for a while. im so proud of you, keep your chin up pwincess.
 
-# 1 December
+# 1 December 
 [message 1 December]
-fill in ur text here
+its the first of december! i hope you got a hot ass santa whos going to town on you
 
-# 3 December (comes with a photo)
+# 3 December (comes with photo 039)
 [message 3 December]
-fill in ur text here
+remember this iconic pic of me and the 2 hotties?
 
-# 5 December
+# 5 December 
 [message 5 December]
 fill in ur text here
 
-# 6 December (comes with a photo)
+# 6 December (comes with photo 088)
 [message 6 December]
 fill in ur text here
 
-# 8 December
+# 7 December 
+[message 7 December]
+remember rickpus LMAOOO
+
+# 8 December 
 [message 8 December]
 fill in ur text here
 
-# 9 December
+# 9 December 
 [message 9 December]
 fill in ur text here
 
-# 10 December (comes with a photo)
+# 10 December (comes with photo 084)
 [message 10 December]
-fill in ur text here
+why are you mogging the fuck out in this pic
 
-# 12 December
+# 12 December 
 [message 12 December]
 fill in ur text here
 
-# 13 December
+# 13 December 
 [message 13 December]
 fill in ur text here
+
+# 14 December 
+[message 14 December]
+you made it!!! have the best and most relaxing christmassy time now my boo
 
 # ---------- The two birds on the bench (from 26 November) ----------
 # One line each, starting with cockatoo: or rock: . They take turns in this order.

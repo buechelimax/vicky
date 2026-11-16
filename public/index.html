@@ -408,7 +408,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .book.single .end-in { font-size: clamp(1rem, 4vw, 1.2rem); }
 .end-in .icon { width: 1.6em; height: 1.6em; color: var(--dc); }
 .end-text, .end-quote { margin: 0; white-space: pre-line; }
-.end-quote { font-size: .92em; color: #6b5a72; padding-top: .9em; border-top: 1px solid var(--dc); }
+.end-quote { font-size: .78em; line-height: 1.35; color: #8a7890; padding-top: .7em; border-top: 1px solid var(--dc); max-width: 80%; }
 .leaf { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; transition: transform .85s cubic-bezier(.45,.05,.3,1); z-index: 3; }
 .leaf.fwd { left: 50%; transform-origin: left center; }
 .leaf.bwd { left: 0; transform-origin: right center; }
@@ -1708,16 +1708,19 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   function thumbSrc(n) { return "thumbs/p" + String(n).padStart(3, "0") + ".jpg"; }
   /* Messages from Noemi: one on every day nothing new appears on the lake. photo: also lands in Photos */
   var MESSAGES = [
-    { d: 13, time: "09:12", text: "fill in ur text here" },
-    { d: 15, time: "18:40", text: "fill in ur text here" },
-    { d: 17, time: "20:15", text: "fill in ur text here", photo: 40 },
-    { d: 19, time: "12:05", text: "fill in ur text here" },
-    { d: 20, time: "08:30", text: "fill in ur text here", photo: 88 },
-    { d: 22, time: "16:22", text: "fill in ur text here" },
-    { d: 23, time: "11:48", text: "fill in ur text here" },
-    { d: 24, time: "20:15", text: "fill in ur text here", photo: 100 },
-    { d: 26, time: "21:03", text: "fill in ur text here" },
-    { d: 27, time: "10:10", text: "fill in ur text here" }
+    { d: 4, time: "19:40", text: "fill in ur text here", photo: 87 },    /* 20 Nov */
+    { d: 13, time: "09:12", text: "fill in ur text here" },              /* 29 Nov */
+    { d: 15, time: "08:05", text: "fill in ur text here" },              /* 1 Dec */
+    { d: 17, time: "20:15", text: "fill in ur text here", photo: 39 },   /* 3 Dec */
+    { d: 19, time: "12:05", text: "fill in ur text here" },              /* 5 Dec */
+    { d: 20, time: "08:30", text: "fill in ur text here", photo: 88 },   /* 6 Dec */
+    { d: 21, time: "21:30", text: "fill in ur text here" },              /* 7 Dec */
+    { d: 22, time: "16:22", text: "fill in ur text here" },              /* 8 Dec */
+    { d: 23, time: "11:48", text: "fill in ur text here" },              /* 9 Dec */
+    { d: 24, time: "20:15", text: "fill in ur text here", photo: 84 },   /* 10 Dec */
+    { d: 26, time: "21:03", text: "fill in ur text here" },              /* 12 Dec */
+    { d: 27, time: "10:10", text: "fill in ur text here" },              /* 13 Dec */
+    { d: 28, time: "20:00", text: "fill in ur text here" }               /* 14 Dec */
   ];
   /* Photos already on the phone from the start (the ones not in the book or in a message) */
   var GALLERY = [10, 14, 18, 21, 23, 25, 32, 35, 37, 39, 44, 47, 52, 55, 56, 60, 62, 65, 67, 68, 69, 70, 71, 74, 76, 78, 79, 80, 81, 82, 83, 86, 87, 90, 91, 94, 95, 96, 98, 7, 16];
@@ -1745,7 +1748,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   }
   function buildChat() {
     var c = $("chat"); c.innerHTML = "";
-    var got = MESSAGES.filter(function (m) { return m.d <= shown; });
+    var got = live().filter(function (m) { return m.d <= shown; });
     if (!got.length) { c.innerHTML = '<p class="empty">No messages yet.</p>'; return; }
     got.forEach(function (m) {
       var day = document.createElement("p"); day.className = "day";
@@ -1762,7 +1765,9 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   }
   var lastRead = 0;
   try { lastRead = +(localStorage.getItem("vicky-read") || 0); } catch (e) {}
-  function unread() { return MESSAGES.filter(function (m) { return m.d <= shown && m.d > lastRead; }); }
+  function unread() { return live().filter(function (m) { return m.d <= shown && m.d > lastRead; }); }
+  /* Messages still saying "fill in ur text here" never reach Vicky; they only show in the #preview view */
+  function live() { return MESSAGES.filter(function (m) { return m.text !== "fill in ur text here" || location.hash === "#preview"; }); }
   function syncNotes() {
     if (lastRead > shown) lastRead = shown;
     var u = unread();
@@ -1802,28 +1807,28 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   /* Oldest first: the welcome party, then her folder from the bottom up. "v1"/"v2" are the videos */
   var BOOK = [
     { pics: [13, 11] },          /* 1 Alkaff Mansion */
-    { pics: [7, 9] },            /* 2 Alkaff Mansion */
-    { pics: [101, 16, 18] },     /* 3 Merlion (gagi), Marina Bay, hawker centre */
-    { pics: ["v2", 45, 43] },    /* 4 Night walk, Marina Bay Sands */
+    { pics: [5, 7, 9] },         /* 2 Alkaff Mansion, with Hayden */
+    { pics: [101, 16, 18] },     /* 3 Tour across Singapore (gagi, Marina Bay, hawker centre) */
+    { pics: ["v2", 45, 43] },    /* 4 First prosecco night, Marina Bay Sands */
     { pics: [38, 36, 26] },      /* 5 The field with the skyline */
-    { pics: [42, 41] },          /* 6 Rooftop pool */
-    { pics: [50, 49] },          /* 7 Nails day */
-    { pics: [5, 6] },            /* 8 Welcome party */
+    { pics: [41] },              /* 6 Cracker party */
+    { pics: [42, 3] },           /* 7 The views */
+    { pics: [50, 49] },          /* 8 Nails and feet day */
     { pics: [84, 77, 73] },      /* 9 Lace night out */
-    { pics: [66, 64, 53] },      /* 10 Costumes */
+    { pics: [66, 64, 55] },      /* 10 Pirate night */
     { pics: [61, 57, 51] },      /* 11 View from the top */
     { pics: [34, 33, 31] },      /* 12 Street and mirror selfies */
     { pics: [30, 29, 28] },      /* 13 Prosecco club */
     { pics: [24, 22, 20] },      /* 14 Campus days */
     { pics: ["v1", 15, 4] },     /* 15 Red club lights */
     { pics: [12, 8] },           /* 16 Friends */
-    { pics: [3, 1] },            /* 17 Rooftop bar */
-    { pics: [93, 97, 100] }      /* 18 Dinner (last page) */
+    { pics: [69, 1] },           /* 17 Perfect match */
+    { pics: [93, 97, 100] }      /* 18 The last page */
   ].map(function (p, i) { p.n = i + 1; p.text = p.text || "fill in ur text here"; return p; });
   /* The intro note is tucked in right after the cover, so she can always find it again */
   var PAGES = [{ cover: true }, { intro: true }].concat(BOOK).concat([{ end: true }, { back: true }]);
   /* Each photo's main colour (worked out from the photos), used to colour its page */
-  var TINT = {"13":[130,112,86],"11":[111,92,62],"7":[107,90,61],"9":[128,109,77],"101":[171,151,143],"16":[108,143,181],"18":[133,100,79],"v2":[143,109,96],"45":[74,80,59],"43":[137,126,99],"38":[88,71,65],"36":[69,63,51],"26":[25,25,13],"42":[193,93,89],"41":[122,106,70],"50":[167,138,121],"49":[162,123,104],"5":[150,114,89],"6":[141,132,118],"84":[127,98,95],"77":[149,114,96],"73":[157,132,114],"66":[179,128,103],"64":[148,114,77],"53":[122,86,60],"61":[168,132,109],"57":[109,86,79],"51":[117,101,79],"34":[158,123,92],"33":[135,112,77],"31":[157,120,92],"30":[120,27,128],"29":[145,29,69],"28":[80,19,43],"24":[166,164,176],"22":[143,130,101],"20":[146,120,99],"v1":[100,6,14],"15":[128,18,46],"4":[171,53,47],"12":[160,130,106],"8":[125,105,92],"3":[104,97,78],"1":[152,82,116],"93":[155,142,119],"97":[166,132,108],"100":[152,112,94]};
+  var TINT = {"13":[130,112,86],"11":[111,92,62],"5":[150,114,89],"7":[107,90,61],"9":[128,109,77],"101":[171,151,143],"16":[108,143,181],"18":[133,100,79],"v2":[143,109,96],"45":[74,80,59],"43":[137,126,99],"38":[88,71,65],"36":[69,63,51],"26":[25,25,13],"41":[122,106,70],"42":[193,93,89],"3":[104,97,78],"50":[167,138,121],"49":[162,123,104],"84":[127,98,95],"77":[149,114,96],"73":[157,132,114],"66":[179,128,103],"64":[148,114,77],"55":[126,84,73],"61":[168,132,109],"57":[109,86,79],"51":[117,101,79],"34":[158,123,92],"33":[135,112,77],"31":[157,120,92],"30":[120,27,128],"29":[145,29,69],"28":[80,19,43],"24":[166,164,176],"22":[143,130,101],"20":[146,120,99],"v1":[100,6,14],"15":[128,18,46],"4":[171,53,47],"12":[160,130,106],"8":[125,105,92],"69":[109,105,74],"1":[152,82,116],"93":[155,142,119],"97":[166,132,108],"100":[152,112,94]};
   function hsl(rgb) {
     var r = rgb[0] / 255, g = rgb[1] / 255, b = rgb[2] / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), h = 0, l = (mx + mn) / 2, d = mx - mn, s = 0;
     if (d) {
@@ -1862,7 +1867,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
       (TEXTS["end quote"] ? '<p class="end-quote">' + esc(TEXTS["end quote"]) + '</p>' : '') + '</div></div>';
     if (p.intro) return '<div class="page ' + side + ' intro-page"><div class="insert-wrap"><span class="tape-l" aria-hidden="true"></span><span class="tape-r" aria-hidden="true"></span><div class="insert"><p class="insert-head">read me first</p>' +
       String(TEXTS.intro).split(/\n\s*\n/).map(function (t) { return '<p class="para">' + esc(t.trim()) + '</p>'; }).join("") + '</div></div></div>';
-    if (p.back) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-bow"/></svg><span class="s" style="white-space: pre-line">' + esc(TEXTS.back) + '</span></div>';
+    if (p.back) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true" style="width: 3.4rem; height: 3.4rem"><use href="#i-bow"/></svg></div>';
     var TILT = ["-1.4deg", "1.1deg", "-0.7deg"];
     var imgs = p.pics.map(function (n, k) {
       var cls = "ph" + (k === 0 && p.n % 2 ? " tape" : "") + (typeof n === "string" ? " vid" : "");
