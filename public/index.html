@@ -109,6 +109,7 @@
 }
 
 * { box-sizing: border-box; }
+.dict-form[hidden], .dict-form [hidden], .dict-btns[hidden] { display: none; }
 body {
   background: var(--bg);
   color: var(--ink);
@@ -269,6 +270,34 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .banner span { display: grid; line-height: 1.2; min-width: 0; }
 .banner small { font-size: .85rem; color: var(--muted); }
 .ico-msgs { background: #6fbf73; color: #fff; }
+.ico-dict { background: var(--rose); color: var(--surface); font-size: 1.75rem; line-height: 1; letter-spacing: -.02em; }
+.dict-search { width: 100%; font: inherit; font-size: 1.05rem; padding: 7px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); margin-bottom: 10px; }
+.dict-list { list-style: none; margin: 0; padding: 0; }
+.dict-list li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.dict-list li:last-child { border-bottom: 0; }
+.dict-list .hw { font-weight: 600; font-size: 1.2rem; line-height: 1.2; }
+.dict-list .kind { color: var(--muted); font-size: .9rem; margin-left: 6px; font-variant: small-caps; letter-spacing: .03em; }
+.dict-list .mean { white-space: pre-line; margin: 3px 0 0; line-height: 1.3; }
+.dict-list .also, .dict-list .by { margin: 3px 0 0; font-size: .9rem; color: var(--muted); line-height: 1.25; }
+.dict-list .tag { display: inline-block; font-size: .8rem; padding: 0 8px; border-radius: 10px; background: var(--hero); color: var(--rose); margin-left: 4px; }
+.dict-head { font-size: .95rem; color: var(--muted); margin: 14px 0 0; }
+.dict-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.dict-btn { font: inherit; font-size: .95rem; padding: 3px 12px; border-radius: 14px; border: 1px solid var(--rose); background: none; color: var(--rose); cursor: pointer; }
+.dict-btn.solid { background: var(--rose); color: var(--surface); }
+.dict-form { display: grid; gap: 8px; margin: 6px 0 12px; }
+.dict-form label { display: grid; gap: 2px; font-size: .95rem; color: var(--muted); }
+.dict-form input, .dict-form textarea { font: inherit; font-size: 1.05rem; padding: 6px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); }
+.dict-form textarea { min-height: 4.2em; resize: vertical; }
+.dict-note { color: var(--muted); font-size: .95rem; margin: 4px 0 10px; }
+.yt-box { position: fixed; left: 12px; bottom: 12px; width: 200px; height: 113px; z-index: 40; opacity: 0; pointer-events: none; border-radius: 10px; overflow: hidden; }
+.yt-box.ask { opacity: 1; pointer-events: auto; box-shadow: 0 6px 20px rgba(20, 24, 50, .3); }
+.yt-box iframe { width: 100%; height: 100%; border: 0; display: block; }
+.vid { position: relative; min-height: 0; border: 4px solid #ffffff; border-radius: 2px; box-shadow: 0 2px 6px rgba(40, 20, 30, .22); background: #111; overflow: hidden; cursor: pointer; }
+.pics.n3 .vid:first-child { grid-column: 1 / -1; }
+.vid video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vid .vplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, .85); display: grid; place-items: center; pointer-events: none; }
+.vid .vplay::before { content: ""; margin-left: 4px; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent #2b2540; }
+.vid.on .vplay { display: none; }
 .ico-count { background: var(--surface); display: grid; grid-template-rows: 18px 1fr; padding: 0; overflow: hidden; place-items: stretch; }
 .ico-count .top { background: var(--rose); color: var(--surface); font-size: .62rem; letter-spacing: .14em; display: grid; place-items: center; }
 .ico-count .num { color: var(--ink); font-size: 1.7rem; line-height: 1; display: grid; place-items: center; font-variant-numeric: lining-nums tabular-nums; }
@@ -1248,6 +1277,9 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   <button type="button" class="phone-close" id="book-close" aria-label="Close the book">&times;</button>
 </div>
 
+<!-- The radio's music player. Hidden; it only shows if a browser wants a tap inside it first -->
+<div class="yt-box" id="yt-box"><div id="yt"></div></div>
+
 <!-- THE PHONE -->
 <div class="phone-layer" id="phone" hidden>
   <div class="phone-backdrop" id="phone-backdrop"></div>
@@ -1262,6 +1294,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
           <button type="button" class="app-btn" data-open="messages"><span class="app-ico ico-msgs"><svg class="icon" aria-hidden="true"><use href="#i-bubble"/></svg><span class="badge" id="badge" hidden></span></span>Messages</button>
           <button type="button" class="app-btn" data-open="countdown"><span class="app-ico ico-count" aria-hidden="true"><span class="top">DAYS</span><span class="num" id="ico-days">41</span></span>Countdown</button>
           <button type="button" class="app-btn" data-open="clock"><span class="app-ico ico-clock"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span>Clock</button>
+          <button type="button" class="app-btn" data-open="dict"><span class="app-ico ico-dict"><span aria-hidden="true">Aa</span><span class="badge" id="dict-badge" hidden></span></span>Dictionary</button>
         </div>
       </div>
 
@@ -1286,10 +1319,29 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
             <circle class="ring-track" cx="60" cy="60" r="50"/>
             <circle class="ring-fill" id="ring" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="0"/>
           </svg>
-          <div class="ring-mid"><span class="n" id="days">41</span><span class="u" id="days-unit">days</span></div>
+          <div class="ring-mid"><span class="n" id="days">41</span><span class="u" id="days-unit">days</span><svg class="icon" id="days-home" hidden aria-hidden="true" style="width: 72px; height: 72px; color: var(--rose)"><use href="#i-bow"/></svg></div>
         </div>
         <p class="count-note" id="days-label">until you're home</p>
         <div class="flight"><svg class="icon" aria-hidden="true"><use href="#i-plane"/></svg><span>Monday 14 December</span></div>
+      </div>
+
+      <div class="app" data-app="dict" hidden>
+        <button type="button" class="back" data-open="home">&lsaquo; Home</button>
+        <h3>Our dictionary</h3>
+        <div id="dict-review"></div>
+        <input class="dict-search" id="dict-search" type="search" placeholder="Look up a word" aria-label="Look up a word">
+        <ul class="dict-list" id="dict-list"></ul>
+        <div id="dict-mine"></div>
+        <button type="button" class="dict-btn solid" id="dict-add" style="margin-top: 14px">Suggest a word</button>
+        <form class="dict-form" id="dict-form" hidden>
+          <input type="hidden" name="wid">
+          <label>Word<input name="word" maxlength="80" required autocomplete="off"></label>
+          <label class="noemi-only" hidden>Kind of word<input name="kind" maxlength="40" autocomplete="off" placeholder="phrase, noun, verb..."></label>
+          <label>What it means<textarea name="meaning" maxlength="600"></textarea></label>
+          <label class="noemi-only" hidden>Also said as<input name="also" maxlength="200" autocomplete="off"></label>
+          <div class="dict-btns"><button type="submit" class="dict-btn solid" id="dict-send">Send to Noemi</button><button type="button" class="dict-btn" id="dict-cancel">Cancel</button></div>
+        </form>
+        <p class="dict-note" id="dict-note" hidden></p>
       </div>
 
       <div class="app" data-app="messages" hidden>
@@ -1365,16 +1417,18 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     orb.addEventListener("pointercancel", end);
   });
 
-  /* ---------- Countdown: she flies home on 14 Dec 2026 (time not known, so days only) ---------- */
-  var HOME = new Date(2026, 11, 14);
-  function tick() {
-    var t = new Date(), today = new Date(t.getFullYear(), t.getMonth(), t.getDate());
-    var d = Math.round((HOME - today) / 86400000);
-    d = Math.max(0, d);
-    $("days").textContent = d; $("ico-days").textContent = d;
+  /* ---------- Countdown: she flies home on 14 Dec 2026 (days only). Follows the day shown, so the preview slider moves it too ---------- */
+  var HOME_TEXT = "you made it home!! im so proud of you pwincess";
+  function syncCount(day) {
+    var d = Math.max(0, 28 - day), home = d === 0;
+    $("days").textContent = d; $("ico-days").textContent = home ? "0" : d;
+    $("days").hidden = home; $("days-unit").hidden = home; $("days-home").toggleAttribute("hidden", !home);
     $("days-unit").textContent = d === 1 ? "day" : "days";
-    $("days-label").textContent = d === 0 ? "You're home." : "until you're home";
-    $("ring").setAttribute("stroke-dashoffset", (314.16 * (1 - Math.min(1, d / 28))).toFixed(1));
+    $("days-label").textContent = home ? HOME_TEXT : "until you're home";
+    $("ring").setAttribute("stroke-dashoffset", home ? "0" : (314.16 * (1 - Math.min(1, d / 28))).toFixed(1));
+  }
+  function tick() {
+    var t = new Date();
     var hm = t.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
     $("ph-time").textContent = hm; $("ph-big-time").textContent = hm;
     $("ph-date").textContent = t.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
@@ -1443,12 +1497,59 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   var items = Array.prototype.slice.call(document.querySelectorAll("#lake .it"));
   var shown = -1;
 
-  /* Radio (from day 4): her playlist goes here; tapping the radio changes the song */
-  var SONGS = [["Hips Don't Lie", "Shakira"]];
+  /* Radio (from day 4): early 2000s club hits from YouTube. First tap plays, every tap after skips to the next song */
+  var SONGS = [
+    ["DUT5rEU6pqM", "Hips Don't Lie", "Shakira"],
+    ["LOZuxwVk7TU", "Toxic", "Britney Spears"],
+    ["ViwtNLUqkMY", "Crazy in Love", "Beyoncé"],
+    ["GxBSyx85Kp8", "Yeah!", "Usher"],
+    ["0J3vgcE5i2o", "Promiscuous", "Nelly Furtado"],
+    ["PWgvGjAhvIw", "Hey Ya!", "Outkast"],
+    ["Kgjkth6BRRY", "Hollaback Girl", "Gwen Stefani"],
+    ["3gOHvDP_vCs", "SexyBack", "Justin Timberlake"],
+    ["CvBfHwUxHIk", "Umbrella", "Rihanna"],
+    ["iP6XpLQM2Cs", "TiK ToK", "Kesha"],
+    ["2Abk1jAONjw", "Just Dance", "Lady Gaga"],
+    ["GeZZr_p6vB8", "Hot in Herre", "Nelly"],
+    ["gGdGFtwCNBE", "Mr. Brightside", "The Killers"]
+  ];
   var song = 0;
-  var musicOn = false;
+  var musicOn = false, playingNow = false, yt = null, ytReady = false, ytWant = false, askTimer = null;
   try { musicOn = localStorage.getItem("vicky-music") === "1"; } catch (e) {}
-  function showSong() { $("song-name").textContent = SONGS[song][0] + ", " + SONGS[song][1]; }
+  function showSong() {
+    $("song-name").textContent = SONGS[song][1] + ", " + SONGS[song][2];
+    $("now-playing").hidden = !playingNow;
+  }
+  window.onYouTubeIframeAPIReady = function () {
+    yt = new YT.Player("yt", {
+      width: 200, height: 113,
+      playerVars: { playsinline: 1, controls: 1, rel: 0 },
+      events: {
+        onReady: function () { ytReady = true; if (ytWant) startMusic(); },
+        onStateChange: function (e) {
+          if (e.data === YT.PlayerState.PLAYING) {
+            playingNow = true; clearTimeout(askTimer); $("yt-box").classList.remove("ask");
+            var i = yt.getPlaylistIndex(); if (i >= 0) song = i;
+            showSong();
+          }
+          if (e.data === YT.PlayerState.PAUSED) { playingNow = false; showSong(); }
+        },
+        onError: function () { yt.nextVideo(); }
+      }
+    });
+  };
+  (function () { var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; s.async = true; document.head.appendChild(s); })();
+  function startMusic() {
+    if (!ytReady) { ytWant = true; return; }
+    ytWant = false;
+    if (!playingNow && yt.getPlaylist && yt.getPlaylist()) yt.playVideo();
+    else if (!yt.getPlaylist || !yt.getPlaylist()) yt.loadPlaylist(SONGS.map(function (s) { return s[0]; }), song);
+    else yt.nextVideo();
+    yt.setLoop(true);
+    /* Some phones won't start sound from outside the player: show it so she can press play herself */
+    clearTimeout(askTimer);
+    askTimer = setTimeout(function () { if (!playingNow) $("yt-box").classList.add("ask"); }, 2500);
+  }
 
   /* The two birds (from 26 Nov): left is the cock-of-the-rock, right is the cockatoo */
   var LINES = [
@@ -1484,12 +1585,14 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     $("lake-date").textContent = fmt(d);
     $("day").value = d;
     $("day-label").textContent = "Day " + d + " of " + LAST;
-    $("now-playing").hidden = d < 3 || !musicOn;
+    $("now-playing").hidden = d < 3 || !playingNow;
     $("notes").toggleAttribute("hidden", !musicOn);
-    showSong();
     syncBubble();
     syncNotes();
+    syncCount(d);
   }
+  /* Past midnight with the page still open: move to the new day */
+  setInterval(function () { if (location.hash !== "#preview" && realDay() !== shown) setDay(realDay(), true); }, 60000);
 
   /* ---------- Preview slider ---------- */
   var playing = null;
@@ -1515,10 +1618,8 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     g._t = setTimeout(function () { g.classList.remove("go"); }, 2800);
     if (g.dataset.egg === "radio") {
       if (!musicOn) { musicOn = true; try { localStorage.setItem("vicky-music", "1"); } catch (e) {} }
-      else { song = (song + 1) % SONGS.length; }
-      showSong();
+      startMusic();
       $("notes").removeAttribute("hidden");
-      $("now-playing").hidden = false;
     }
     if (g.dataset.egg === "otter") throwFish(g);
     if (g.dataset.egg === "kingfisher") g.classList.toggle("in-tree");
@@ -1633,6 +1734,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   var apps = document.querySelectorAll(".app");
   function openApp(name) {
     apps.forEach(function (a) { a.hidden = a.dataset.app !== name; });
+    if (name === "dict") { closeForm(); $("dict-note").hidden = true; loadDict(); }
     if (name === "messages") { markRead(); var c = $("chat"); setTimeout(function () { c.parentNode.scrollTop = c.parentNode.scrollHeight; }, 0); }
   }
   document.querySelectorAll("[data-open]").forEach(function (b) { b.addEventListener("click", function () { openApp(b.dataset.open); }); });
@@ -1651,11 +1753,24 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("phone").hidden) closePhone(); });
 
   /* ---------- The picture book: always complete, from the start ---------- */
+  /* Oldest first: the welcome party, then her folder from the bottom up. "v1"/"v2" are the videos */
   var BOOK = [
-    { pics: [5, 6] }, { pics: [1, 3] }, { pics: [13, 9, 11] }, { pics: [12, 8] },
-    { pics: [4, 15] }, { pics: [20, 22, 24] }, { pics: [26, 36, 38] }, { pics: [29, 30, 28] },
-    { pics: [31, 33, 34] }, { pics: [42, 41] }, { pics: [45, 43, 46] }, { pics: [50, 49] },
-    { pics: [53, 64, 66] }, { pics: [51, 57, 61] }, { pics: [73, 77, 84] }, { pics: [89, 93, 99] }
+    { pics: [5, 6] },            /* 1 Welcome party */
+    { pics: [99, 93, 89] },      /* 2 Dinner */
+    { pics: [84, 77, 73] },      /* 3 Lace night out */
+    { pics: [66, 64, 53] },      /* 4 Costumes */
+    { pics: [61, 57, 51] },      /* 5 View from the top */
+    { pics: [50, 49] },          /* 6 Nails day */
+    { pics: ["v2", 45, 43] },    /* 7 Night walk, Marina Bay Sands */
+    { pics: [42, 41] },          /* 8 Rooftop pool */
+    { pics: [38, 36, 26] },      /* 9 The field with the skyline */
+    { pics: [34, 33, 31] },      /* 10 Street and mirror selfies */
+    { pics: [30, 29, 28] },      /* 11 Prosecco club */
+    { pics: [24, 22, 20] },      /* 12 Campus days */
+    { pics: ["v1", 15, 4] },     /* 13 Red club lights */
+    { pics: [13, 11, 9] },       /* 14 Alkaff Mansion */
+    { pics: [12, 8] },           /* 15 Friends */
+    { pics: [3, 1] }             /* 16 Rooftop bar */
   ].map(function (p) { p.text = p.text || "fill in ur text here"; return p; });
   var PAGES = [{ cover: true }].concat(BOOK).concat([{ back: true }]);
   function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
@@ -1664,7 +1779,10 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     if (!p) return '<div class="page ' + side + ' blank"></div>';
     if (p.cover) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-otter"/></svg><span class="t">' + esc(TEXTS.cover) + '</span><span class="s">6 August to 14 November</span></div>';
     if (p.back) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-bow"/></svg><span class="s" style="white-space: pre-line">' + esc(TEXTS.back) + '</span></div>';
-    var imgs = p.pics.map(function (n) { return '<img src="' + photoSrc(n) + '" alt="" loading="lazy">'; }).join("");
+    var imgs = p.pics.map(function (n) {
+      if (typeof n === "string") return '<div class="vid" role="button" aria-label="Play video"><video src="videos/' + n + '.mp4" poster="videos/' + n + '.jpg" playsinline preload="none"></video><span class="vplay"></span></div>';
+      return '<img src="' + photoSrc(n) + '" alt="" loading="lazy">';
+    }).join("");
     return '<div class="page ' + side + '"><div class="pics n' + p.pics.length + '">' + imgs + '</div><p class="ptext">' + esc(TEXTS["page " + i] || p.text) + '</p><span class="pnum">' + i + '</span></div>';
   }
   var bookEl = $("book"), spreadEl = $("spread"), single = false, at = 0, turning = false;
@@ -1732,10 +1850,135 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     if (e.key === "ArrowRight") turnPage(1);
     if (e.key === "ArrowLeft") turnPage(-1);
   });
+  /* Videos in the book: tap to play with sound, tap again to pause */
+  spreadEl.addEventListener("click", function (e) {
+    var box = e.target.closest(".vid"); if (!box) return;
+    var v = box.querySelector("video");
+    if (v.paused) { if (playingNow && yt) yt.pauseVideo(); v.play(); box.classList.add("on"); } else { v.pause(); box.classList.remove("on"); }
+    v.onended = function () { box.classList.remove("on"); v.currentTime = 0; };
+  });
   var sx = null;
   bookEl.addEventListener("pointerdown", function (e) { sx = e.clientX; });
   bookEl.addEventListener("pointerup", function (e) { if (sx === null) return; var dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 40) turnPage(dx < 0 ? 1 : -1); });
   window.addEventListener("resize", function () { if (!$("book-layer").hidden) renderBook(); });
+
+  /* ---------- Dictionary: our words. Vicky can suggest new ones; they show up once Noemi says yes ----------
+     Noemi opens the site once with her review link (address ending in #noemi=...). Her browser remembers it,
+     and from then on the Dictionary shows "Waiting for you", plus Edit and Delete on every word. */
+  var dictKey = null, isNoemi = false, WORDS = [], PENDING = [], MINE = [], formMode = "suggest";
+  try { dictKey = localStorage.getItem("vicky-key"); } catch (e) {}
+  (function () {
+    var m = location.hash.match(/^#noemi=(.+)$/);
+    if (!m) return;
+    dictKey = decodeURIComponent(m[1]);
+    try { localStorage.setItem("vicky-key", dictKey); } catch (e) {}
+    history.replaceState(null, "", location.pathname + location.search);
+  })();
+  try { MINE = JSON.parse(localStorage.getItem("vicky-words") || "[]"); } catch (e) { MINE = []; }
+  function saveMine() { try { localStorage.setItem("vicky-words", JSON.stringify(MINE)); } catch (e) {} }
+  function api(path, body) {
+    var o = { headers: {}, cache: "no-store" };
+    if (dictKey) o.headers["x-key"] = dictKey;
+    if (body) { o.method = "POST"; o.headers["content-type"] = "application/json"; o.body = JSON.stringify(body); }
+    return fetch("api/" + path, o).then(function (r) {
+      return r.json().then(function (j) { if (!r.ok) throw j; return j; });
+    });
+  }
+  function loadDict() {
+    api("words").then(function (w) { WORDS = w; renderDict(); })
+      .catch(function () { $("dict-list").innerHTML = '<li class="dict-note">The dictionary only opens on the real site.</li>'; });
+    if (dictKey) api("pending").then(function (p) { isNoemi = true; PENDING = p; setMode(); renderDict(); })
+      .catch(function (e) { if (e && e.error === "not allowed") { dictKey = null; try { localStorage.removeItem("vicky-key"); } catch (x) {} } });
+    var ids = MINE.filter(function (m) { return m.status === "pending"; }).map(function (m) { return m.id; });
+    if (ids.length) api("mine?ids=" + ids.join(",")).then(function (rows) {
+      MINE.forEach(function (m) {
+        if (m.status !== "pending") return;
+        var r = rows.filter(function (x) { return x.id === m.id; })[0];
+        m.status = r ? r.status : "no";
+      });
+      MINE = MINE.filter(function (m) { return m.status !== "ok"; });
+      saveMine(); renderDict();
+    }).catch(function () {});
+  }
+  function setMode() {
+    document.querySelectorAll(".noemi-only").forEach(function (n) { n.hidden = !isNoemi; });
+    $("dict-add").textContent = isNoemi ? "Add a word" : "Suggest a word";
+    $("dict-badge").hidden = !(isNoemi && PENDING.length);
+    $("dict-badge").textContent = PENDING.length;
+  }
+  function entryHTML(w, tools) {
+    return '<div class="hw">' + esc(w.word) + (w.kind ? '<span class="kind">' + esc(w.kind) + '</span>' : '') + '</div>' +
+      (w.meaning ? '<p class="mean">' + esc(w.meaning) + '</p>' : '') +
+      (w.also ? '<p class="also">Also: ' + esc(w.also) + '</p>' : '') +
+      (w.by === "vicky" ? '<p class="by">added by Vicky</p>' : '') +
+      (tools ? '<div class="dict-btns">' + tools + '</div>' : '');
+  }
+  function renderDict() {
+    setMode();
+    var rev = "";
+    if (isNoemi && PENDING.length) {
+      rev = '<p class="dict-head">Waiting for you</p><ul class="dict-list">' + PENDING.map(function (w) {
+        return '<li>' + entryHTML(w, '<button type="button" class="dict-btn solid" data-act="accept" data-id="' + w.id + '">Yes</button>' +
+          '<button type="button" class="dict-btn" data-act="tweak" data-id="' + w.id + '">Edit, then yes</button>' +
+          '<button type="button" class="dict-btn" data-act="reject" data-id="' + w.id + '">No</button>') + '</li>';
+      }).join("") + '</ul><p class="dict-head">In the dictionary</p>';
+    }
+    $("dict-review").innerHTML = rev;
+    var q = $("dict-search").value.trim().toLowerCase();
+    var list = WORDS.filter(function (w) { return !q || (w.word + " " + w.also + " " + w.meaning).toLowerCase().indexOf(q) > -1; });
+    $("dict-list").innerHTML = list.length ? list.map(function (w) {
+      return '<li>' + entryHTML(w, isNoemi ? '<button type="button" class="dict-btn" data-act="edit" data-id="' + w.id + '">Edit</button><button type="button" class="dict-btn" data-act="delete" data-id="' + w.id + '">Delete</button>' : '') + '</li>';
+    }).join("") : '<li class="dict-note">' + (q ? "Not in here (yet)." : "No words yet.") + '</li>';
+    var mine = isNoemi ? [] : MINE.filter(function (m) { return m.status !== "ok"; });
+    $("dict-mine").innerHTML = mine.length ? '<p class="dict-head">Your suggestions</p><ul class="dict-list">' + mine.map(function (m) {
+      return '<li><div class="hw">' + esc(m.word) + '<span class="tag">' + (m.status === "pending" ? "waiting for Noemi" : "Noemi said no") + '</span></div>' +
+        (m.status === "no" ? '<div class="dict-btns"><button type="button" class="dict-btn" data-act="dismiss" data-id="' + m.id + '">OK</button></div>' : '') + '</li>';
+    }).join("") + '</ul>' : "";
+  }
+  function find(id, arr) { return arr.filter(function (w) { return w.id === id; })[0]; }
+  function openForm(mode, w) {
+    formMode = mode;
+    var f = $("dict-form");
+    f.wid.value = w ? w.id : ""; f.word.value = w ? w.word : ""; f.kind.value = w ? w.kind : "";
+    f.meaning.value = w ? w.meaning : ""; f.also.value = w ? w.also : "";
+    $("dict-send").textContent = mode === "suggest" ? "Send to Noemi" : mode === "accept" ? "Save and say yes" : "Save";
+    f.hidden = false; $("dict-add").hidden = true; $("dict-note").hidden = true;
+    f.word.focus();
+    f.scrollIntoView({ block: "nearest" });
+  }
+  function closeForm() { $("dict-form").hidden = true; $("dict-add").hidden = false; }
+  function note(t) { $("dict-note").textContent = t; $("dict-note").hidden = false; }
+  $("dict-add").addEventListener("click", function () { openForm(isNoemi ? "add" : "suggest"); });
+  $("dict-cancel").addEventListener("click", closeForm);
+  $("dict-search").addEventListener("input", renderDict);
+  $("dict-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = e.target, w = { id: +f.wid.value, word: f.word.value, kind: f.kind.value, meaning: f.meaning.value, also: f.also.value };
+    var job;
+    if (formMode === "suggest") job = api("words", { word: w.word, meaning: w.meaning }).then(function (r) {
+      MINE.push({ id: r.id, word: w.word.trim(), status: "pending" }); saveMine();
+      note("Sent to Noemi. It shows up in the dictionary once she says yes.");
+    });
+    else if (formMode === "add") job = api("words", w);
+    else if (formMode === "edit") job = api("edit", w);
+    else job = api("review", { id: w.id, action: "accept", word: w.word, kind: w.kind, meaning: w.meaning, also: w.also });
+    $("dict-send").disabled = true;
+    job.then(function () { closeForm(); loadDict(); })
+      .catch(function (err) { note(err && err.error === "full" ? "Noemi has lots of words to look at already. Try again in a bit." : "That didn't send. Try again in a moment."); })
+      .then(function () { $("dict-send").disabled = false; });
+  });
+  $("phone").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-act]"); if (!b) return;
+    var id = +b.dataset.id, act = b.dataset.act;
+    if (act === "dismiss") { MINE = MINE.filter(function (m) { return m.id !== id; }); saveMine(); renderDict(); return; }
+    if (act === "edit") return openForm("edit", find(id, WORDS));
+    if (act === "tweak") return openForm("accept", find(id, PENDING));
+    if (act === "delete" && !b.dataset.sure) { b.dataset.sure = "1"; b.textContent = "Really delete?"; return; }
+    var call = act === "delete" ? api("delete", { id: id }) : api("review", { id: id, action: act });
+    b.disabled = true;
+    call.then(loadDict).catch(function () { b.disabled = false; });
+  });
+  if (dictKey) loadDict();
 
   /* The preview slider only shows for Noemi, at the address ending in #preview */
   function syncPreview() { $("preview").hidden = location.hash !== "#preview"; }

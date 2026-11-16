@@ -10,63 +10,63 @@ fill in ur text here
 [page 1]
 fill in ur text here
 
-# page 2: Rooftop bar
+# page 2: Dinner
 [page 2]
 fill in ur text here
 
-# page 3: Alkaff Mansion
+# page 3: Lace night out
 [page 3]
 fill in ur text here
 
-# page 4: Friends
+# page 4: Costumes
 [page 4]
 fill in ur text here
 
-# page 5: Red club lights
+# page 5: View from the top
 [page 5]
 fill in ur text here
 
-# page 6: Campus days
+# page 6: Nails day
 [page 6]
 fill in ur text here
 
-# page 7: The field with the skyline
+# page 7: Night walk, Marina Bay Sands (with a video)
 [page 7]
 fill in ur text here
 
-# page 8: Prosecco club
+# page 8: Rooftop pool
 [page 8]
 fill in ur text here
 
-# page 9: Street and mirror selfies
+# page 9: The field with the skyline
 [page 9]
 fill in ur text here
 
-# page 10: Rooftop pool
+# page 10: Street and mirror selfies
 [page 10]
 fill in ur text here
 
-# page 11: Night walk, Marina Bay Sands
+# page 11: Prosecco club
 [page 11]
 fill in ur text here
 
-# page 12: Nails day
+# page 12: Campus days
 [page 12]
 fill in ur text here
 
-# page 13: Costumes
+# page 13: Red club lights (with a video)
 [page 13]
 fill in ur text here
 
-# page 14: View from the top
+# page 14: Alkaff Mansion
 [page 14]
 fill in ur text here
 
-# page 15: Lace night out
+# page 15: Friends
 [page 15]
 fill in ur text here
 
-# page 16: The last dinner
+# page 16: Rooftop bar
 [page 16]
 fill in ur text here
 
