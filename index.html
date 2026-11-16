@@ -69,6 +69,10 @@
   --kingfisher: #2fa3b8;
   --lizard: #8c8a6a;
   --on-lace: #232c55;
+  --paper: #fbf6f1;
+  --book-ink: #2b2540;
+  --book-muted: #8a8098;
+  --cover-ink: #fbefe8;
   --champ: #1f3d30;
   --cream: #f4ecd6;
   --cork: #e7cfa2;
@@ -87,7 +91,7 @@
     --line-ink: #e6c7d0; --otter: #9c7380; --belly: #b394a0; --heron: #8d9cbd; --wood: #8a7887;
     --pastel: #c48797; --bulb: #ffd98a; --boat: #5a6ca6; --bottle: #8a2741; --gold: #f0cd7c;
     --blanket: #6e2f4a; --star: #f6edf1; --day: none; --night: inline;
-    --rock: #e7794f; --rock-dark: #1c1e2c; --too: #a9b1c6; --too-2: #858ea6; --crest: #f0cd6a; --beak: #2b2f3d; --blush: #e98aa1; --frog: #6f9a62; --frog-dark: #4a7040; --orchid: #b175ab; --orchid-lip: #82407a; --kingfisher: #3796a8; --lizard: #8d8b6c; --champ: #2c5a46; --cream: #c4b99e; --cork: #d9bf90;
+    --rock: #e7794f; --rock-dark: #1c1e2c; --too: #a9b1c6; --too-2: #858ea6; --crest: #f0cd6a; --beak: #2b2f3d; --blush: #e98aa1; --frog: #6f9a62; --frog-dark: #4a7040; --orchid: #b175ab; --orchid-lip: #82407a; --kingfisher: #3796a8; --lizard: #8d8b6c; --champ: #2c5a46; --cream: #c4b99e; --paper: #ece4dd; --book-ink: #2b2540; --book-muted: #7d7389; --cover-ink: #2a1a26; --cork: #d9bf90;
     color-scheme: dark;
   }
 }
@@ -100,7 +104,7 @@
   --line-ink: #e6c7d0; --otter: #9c7380; --belly: #b394a0; --heron: #8d9cbd; --wood: #8a7887;
   --pastel: #c48797; --bulb: #ffd98a; --boat: #5a6ca6; --bottle: #8a2741; --gold: #f0cd7c;
   --blanket: #6e2f4a; --star: #f6edf1; --day: none; --night: inline;
-    --rock: #e7794f; --rock-dark: #1c1e2c; --too: #a9b1c6; --too-2: #858ea6; --crest: #f0cd6a; --beak: #2b2f3d; --blush: #e98aa1; --frog: #6f9a62; --frog-dark: #4a7040; --orchid: #b175ab; --orchid-lip: #82407a; --kingfisher: #3796a8; --lizard: #8d8b6c; --champ: #2c5a46; --cream: #c4b99e; --cork: #d9bf90;
+    --rock: #e7794f; --rock-dark: #1c1e2c; --too: #a9b1c6; --too-2: #858ea6; --crest: #f0cd6a; --beak: #2b2f3d; --blush: #e98aa1; --frog: #6f9a62; --frog-dark: #4a7040; --orchid: #b175ab; --orchid-lip: #82407a; --kingfisher: #3796a8; --lizard: #8d8b6c; --champ: #2c5a46; --cream: #c4b99e; --paper: #ece4dd; --book-ink: #2b2540; --book-muted: #7d7389; --cover-ink: #2a1a26; --cork: #d9bf90;
   color-scheme: dark;
 }
 
@@ -222,13 +226,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .badge { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: #e0344f; color: #fff; font-size: .8rem; display: grid; place-items: center; }
 .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .photos button {
-  aspect-ratio: 1; border: 0; padding: 0; cursor: pointer;
-  font: inherit; font-size: .9rem; color: var(--on-tile);
-  background: var(--tile); opacity: .9;
+  aspect-ratio: 1; border: 0; padding: 0; cursor: pointer; overflow: hidden;
+  background: var(--tile);
 }
-.photos button:nth-child(3n+2) { background: var(--rose); }
-.photos button:nth-child(3n) { background: var(--boat); }
-.photo-big { aspect-ratio: 3 / 4; width: 100%; display: grid; place-items: center; background: var(--tile); color: var(--on-tile); border-radius: 6px; margin-bottom: 14px; }
+.photos img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.photos .from { grid-column: 1 / -1; font-size: .85rem; color: var(--muted); margin: 6px 0 0; }
+.photo-big { display: block; width: 100%; height: auto; max-height: 62%; object-fit: contain; background: var(--tile); border-radius: 6px; margin-bottom: 14px; }
 .photo-title { margin: 0 0 4px; font-size: 1.35rem; font-weight: 500; }
 .photo-text { margin: 0; color: var(--muted); }
 .clock-label { margin: 18px 0 4px; }
@@ -250,7 +253,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .chat { display: grid; gap: 6px; }
 .chat .day { text-align: center; font-size: .85rem; color: var(--muted); margin: 10px 0 2px; }
 .chat .msg { justify-self: start; max-width: 80%; padding: 7px 12px; border-radius: 18px 18px 18px 6px; background: var(--surface); color: var(--ink); font-size: 1.05rem; line-height: 1.3; box-shadow: 0 1px 3px rgba(20, 24, 50, .1); }
-.chat .pic-msg { justify-self: start; width: 62%; aspect-ratio: 4 / 5; border: 0; padding: 0; border-radius: 18px 18px 18px 6px; cursor: pointer; font: inherit; background: var(--tile); color: var(--on-tile); }
+.chat .pic-msg { justify-self: start; width: 62%; border: 0; padding: 0; border-radius: 18px 18px 18px 6px; cursor: pointer; overflow: hidden; background: var(--tile); }
+.chat .pic-msg img { display: block; width: 100%; height: auto; }
 .chat .empty { text-align: center; color: var(--muted); margin-top: 40px; }
 .banner {
   display: flex; gap: 10px; align-items: center; width: 100%; text-align: left;
@@ -279,6 +283,61 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .flight { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 18px; font-size: 1.2rem; }
 .flight .icon { width: 1.3em; height: 1.3em; color: var(--rose); }
 .count-note { text-align: center; color: var(--muted); margin: 4px 0 0; }
+/* ---------- The picture book ---------- */
+.book-layer { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; align-content: center; gap: 14px; padding: 16px; }
+.book-backdrop { position: absolute; inset: 0; background: rgba(16, 20, 42, 0.62); }
+.book {
+  position: relative;
+  width: min(940px, 94vw, calc(78vh * 1.5));
+  aspect-ratio: 3 / 2;
+  perspective: 2400px;
+  filter: drop-shadow(0 26px 40px rgba(10, 12, 30, .45));
+  animation: rise-phone .35s cubic-bezier(.2,.9,.3,1.1);
+}
+.book.single { width: min(420px, 92vw, calc(74vh * .75)); aspect-ratio: 3 / 4; }
+.spread { display: flex; width: 100%; height: 100%; }
+.book.single .spread .page.left { display: none; }
+.book.single .spread .page { border-radius: 10px; }
+.page {
+  flex: 1; min-width: 0; position: relative; overflow: hidden;
+  background: var(--paper); color: var(--book-ink);
+  padding: 5% 6% 4%;
+  display: flex; flex-direction: column; gap: 4%;
+}
+.page.left { border-radius: 10px 0 0 10px; box-shadow: inset -22px 0 26px -22px rgba(40, 20, 30, .32); }
+.page.right { border-radius: 0 10px 10px 0; box-shadow: inset 22px 0 26px -22px rgba(40, 20, 30, .32); }
+.page.blank { background: transparent; box-shadow: none; }
+.pics { flex: 1; min-height: 0; display: grid; gap: 7px; }
+.pics.n1 { grid-template: 1fr / 1fr; }
+.pics.n2 { grid-template-rows: 1fr 1fr; }
+.pics.n3 { grid-template-columns: 1fr 1fr; grid-template-rows: 1.25fr 1fr; }
+.pics.n3 img:first-child { grid-column: 1 / -1; }
+.pics img { width: 100%; height: 100%; min-height: 0; object-fit: cover; border: 4px solid #ffffff; border-radius: 2px; box-shadow: 0 2px 6px rgba(40, 20, 30, .22); background: #eee; }
+.ptext { margin: 0; font-size: clamp(.8rem, 1.45vw, 1.12rem); line-height: 1.35; min-height: 2.7em; }
+.book.single .ptext { font-size: clamp(.95rem, 3.8vw, 1.15rem); }
+.pnum { position: absolute; bottom: 2.4%; font-size: .8rem; color: var(--book-muted); font-variant-numeric: lining-nums; }
+.page.left .pnum { left: 6%; }
+.page.right .pnum { right: 6%; }
+.cover { background: var(--rose); color: var(--cover-ink); justify-content: center; align-items: center; text-align: center; gap: 10px; }
+.cover::before { content: ""; position: absolute; inset: 4%; border: 1.5px solid var(--cover-ink); border-radius: 6px; opacity: .55; pointer-events: none; }
+.cover .t { font-size: clamp(1.4rem, 3.4vw, 2.6rem); line-height: 1.1; font-weight: 500; font-style: italic; }
+.book.single .cover .t { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+.cover .s { font-variant-caps: all-small-caps; letter-spacing: .14em; font-size: clamp(.85rem, 1.5vw, 1.1rem); }
+.cover .icon { width: 2.6rem; height: 2.6rem; }
+.leaf { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; transition: transform .85s cubic-bezier(.45,.05,.3,1); z-index: 3; }
+.leaf.fwd { left: 50%; transform-origin: left center; }
+.leaf.bwd { left: 0; transform-origin: right center; }
+.leaf .page { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.leaf .page.backface { transform: rotateY(180deg); }
+.book-nav { position: relative; display: flex; align-items: center; gap: 14px; color: #fff; }
+.book-nav button {
+  width: 46px; height: 46px; border-radius: 50%;
+  font: inherit; font-size: 1.8rem; line-height: 1; padding: 0 0 4px; cursor: pointer;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line);
+}
+.book-nav button:disabled { opacity: .35; cursor: default; }
+.book-nav span { min-width: 7ch; text-align: center; font-variant-numeric: lining-nums tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .leaf { transition: none; } .book { animation: none; } }
 .big-count { font-size: 6rem; line-height: .9; font-weight: 500; color: var(--rose); font-variant-numeric: lining-nums tabular-nums; }
 .soon { margin-top: 30px; text-align: center; color: var(--muted); }
 .homebar { position: absolute; left: 50%; bottom: 9px; transform: translateX(-50%); width: 120px; height: 18px; border: 0; background: none; cursor: pointer; padding: 0; }
@@ -471,7 +530,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   .lake .swim { transform: translateX(30px); }
   #wheel { transition: none !important; }
 }
-.go[data-egg="phone"] .act { animation: wiggle 0.4s ease-in-out; }
+.go[data-egg="phone"] .act, .go[data-egg="book"] .act { animation: wiggle 0.4s ease-in-out; }
 </style>
 
 <style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -632,7 +691,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
           </g>
 
           <!-- plane, last day -->
-          <g class="it egg" data-d="30" data-egg="plane" tabindex="0" role="button" aria-label="Plane">
+          <g class="it egg" data-d="28" data-egg="plane" tabindex="0" role="button" aria-label="Plane">
             <g transform="translate(0 40)">
               <g class="fly">
                 <g class="act">
@@ -754,7 +813,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
 
 
           <!-- tree, left -->
-          <g class="it egg" data-d="9" data-egg="tree" tabindex="0" role="button" aria-label="Tree">
+          <g class="it egg" data-d="7" data-egg="tree" tabindex="0" role="button" aria-label="Tree">
             <g transform="translate(20 0)"><g class="act">
               <path d="M62 238 Q60 200 63 160" style="fill: none; stroke: var(--line-ink); stroke-width: 4; stroke-linecap: round"/>
               <path d="M62 238 Q60 200 63 160" style="fill: none; stroke: var(--wood); stroke-width: 2; stroke-linecap: round"/>
@@ -769,7 +828,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
 
 
           <!-- fairy lights, 2nd Thursday -->
-          <g class="it egg" data-d="12" data-egg="lights" tabindex="0" role="button" aria-label="Fairy lights">
+          <g class="it egg" data-d="10" data-egg="lights" tabindex="0" role="button" aria-label="Fairy lights">
             <path d="M330 236 V140" style="fill: none; stroke: var(--line-ink); stroke-width: 3; stroke-linecap: round"/>
             <path d="M330 236 V140" style="fill: none; stroke: var(--wood); stroke-width: 1.4; stroke-linecap: round"/>
             <circle cx="330" cy="139" r="2.6" class="o" style="fill: var(--gold)"/>
@@ -796,7 +855,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
 
 
           <!-- frog on a lily pad -->
-          <g class="it egg" data-d="21" data-egg="frog" tabindex="0" role="button" aria-label="Frog">
+          <g class="it egg" data-d="18" data-egg="frog" tabindex="0" role="button" aria-label="Frog">
             <g transform="translate(102 44.5) scale(.7)">
             <rect x="276" y="180" width="30" height="20" fill="transparent"/>
             <g class="fly-wrap"><g class="buzz">
@@ -820,7 +879,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
 
           <!-- heron -->
           <!-- bougainvillea bush on the far right -->
-          <g class="it egg" data-d="7" data-egg="bush" tabindex="0" role="button" aria-label="Bougainvillea">
+          <g class="it egg" data-d="6" data-egg="bush" tabindex="0" role="button" aria-label="Bougainvillea">
             <g class="act">
               <circle cx="384" cy="222" r="14" class="o" style="fill: var(--leaf)"/>
               <circle cx="398" cy="214" r="13" class="o" style="fill: var(--leaf)"/>
@@ -834,7 +893,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
             </g>
           </g>
 
-          <g class="it egg" data-d="5" data-egg="heron" tabindex="0" role="button" aria-label="Heron">
+          <g class="it egg" data-d="4" data-egg="heron" tabindex="0" role="button" aria-label="Heron">
             <g transform="translate(724 0) scale(-1 1)"><g class="act">
               <path class="ln" d="M346 234 L344 214 M352 234 L351 214"/>
               <ellipse cx="349" cy="207" rx="12" ry="6.5" transform="rotate(-14 349 207)" class="o" style="fill: var(--heron)"/>
@@ -859,16 +918,16 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
           </g>
 
           <!-- otters, holding on to each other -->
-          <g class="it egg" data-d="17" data-egg="otter" tabindex="0" role="button" aria-label="Otter">
+          <g class="it egg" data-d="16" data-egg="otter" tabindex="0" role="button" aria-label="Otter">
             <g transform="translate(210 211) scale(.95)"><g class="bob"><g class="act"><use href="#otter"/><use href="#otter-fish" class="caught"/><use href="#otter-happy" class="happy"/></g></g></g>
           </g>
-          <g class="it egg" data-d="6" data-egg="otter" tabindex="0" role="button" aria-label="Otter">
+          <g class="it egg" data-d="5" data-egg="otter" tabindex="0" role="button" aria-label="Otter">
             <g transform="translate(238 207)"><g class="bob"><g class="act"><use href="#otter"/><use href="#otter-fish" class="caught"/><use href="#otter-happy" class="happy"/></g></g></g>
           </g>
-          <g class="it egg" data-d="10" data-egg="otter" tabindex="0" role="button" aria-label="Otter">
+          <g class="it egg" data-d="9" data-egg="otter" tabindex="0" role="button" aria-label="Otter">
             <g transform="translate(266 209)"><g class="bob"><g class="act"><use href="#otter"/><use href="#otter-fish" class="caught"/><use href="#otter-happy" class="happy"/></g></g></g>
           </g>
-          <g class="it egg" data-d="14" data-egg="otter" id="baby" tabindex="0" role="button" aria-label="Baby otter">
+          <g class="it egg" data-d="12" data-egg="otter" id="baby" tabindex="0" role="button" aria-label="Baby otter">
             <g transform="translate(290 213) scale(.68)"><g class="bob"><g class="act"><use href="#otter"/><use href="#otter-fish" class="caught"/><use href="#otter-happy" class="happy"/></g></g></g>
           </g>
 
@@ -876,7 +935,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
 
 
           <!-- a duck and her ducklings -->
-          <g class="it egg" data-d="25" data-egg="ducks" tabindex="0" role="button" aria-label="Ducks">
+          <g class="it egg" data-d="21" data-egg="ducks" tabindex="0" role="button" aria-label="Ducks">
             <g class="swim"><g transform="translate(62.3 60.6) scale(.55)"><g class="bob"><g class="act">
               <path d="M102.5 225.4 l8 -2.6 M102.5 228.4 l8 2.6 M129.6 227.6 l7 -2.4 M129.6 229.8 l7 2.4" style="fill: none; stroke: var(--shimmer); stroke-width: 1.4; stroke-linecap: round; opacity: .9"/>
               <path d="M110.4 227.2 l3 -1 M110.4 229 l3 1 M118.4 227.5 l3 -1 M118.4 229.3 l3 1" style="fill: none; stroke: var(--shimmer); stroke-width: 1.1; stroke-linecap: round; opacity: .8"/>
@@ -1006,7 +1065,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
           </g>
 
           <!-- monitor lizard crossing the bridge -->
-          <g class="it egg" data-d="29" data-egg="lizard" id="gecko" tabindex="0" role="button" aria-label="Gecko">
+          <g class="it egg" data-d="25" data-egg="lizard" id="gecko" tabindex="0" role="button" aria-label="Gecko">
             <g class="runner">
             <g transform="translate(27 234) rotate(-64) scale(.62) translate(-24 -221)">
             <rect x="2" y="212" width="40" height="18" fill="transparent"/>
@@ -1028,24 +1087,24 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
           </g>
 
           <!-- flowers -->
-          <g class="it egg" data-d="13" data-egg="flowers" tabindex="0" role="button" aria-label="Flowers">
+          <g class="it egg" data-d="14" data-egg="flowers" tabindex="0" role="button" aria-label="Flowers">
             <g id="flowers"></g>
           </g>
 
 
 
           <!-- bench -->
-          <g class="it egg" data-d="3" data-egg="bench" tabindex="0" role="button" aria-label="Bench">
+          <g class="it egg" data-d="0" data-egg="bench" tabindex="0" role="button" aria-label="Bench">
             <g class="act">
-              <path class="ln" style="stroke-width: 1.6" d="M116 228 V258 M170 228 V258 M114 248 V258 M172 248 V258"/>
-              <rect x="112" y="229" width="62" height="3.6" rx="1.2" class="o" style="fill: var(--wood)"/>
-              <rect x="112" y="235.5" width="62" height="3.6" rx="1.2" class="o" style="fill: var(--wood)"/>
-              <rect x="108" y="244" width="70" height="4.2" rx="1.2" class="o" style="fill: var(--wood)"/>
+              <path class="ln" style="stroke-width: 1.6" d="M116 228 V258 M194 228 V258 M114 248 V258 M196 248 V258"/>
+              <rect x="112" y="229" width="86" height="3.6" rx="1.2" class="o" style="fill: var(--wood)"/>
+              <rect x="112" y="235.5" width="86" height="3.6" rx="1.2" class="o" style="fill: var(--wood)"/>
+              <rect x="108" y="244" width="94" height="4.2" rx="1.2" class="o" style="fill: var(--wood)"/>
             </g>
           </g>
 
           <!-- radio, 1st Thursday -->
-          <g class="it egg" data-d="4" data-egg="radio" tabindex="0" role="button" aria-label="Radio">
+          <g class="it egg" data-d="3" data-egg="radio" tabindex="0" role="button" aria-label="Radio">
             <path d="M186 262 L252 258.5 L262 279 L178 282.5 Z" class="o" style="fill: var(--blanket)"/>
             <path d="M184 266.5 L255 262.8 M181.6 271.4 L258 267.4 M179.6 276.6 L260.4 272.6" class="ln" style="stroke: var(--surface); stroke-width: 1.4; opacity: .85"/>
             <path d="M178 282.5 L262 279" class="ln" style="stroke: var(--lace); stroke-width: 2.4; stroke-dasharray: .1 4.2"/>
@@ -1065,7 +1124,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
           </g>
 
           <!-- two birds having prosecco, 2nd Thursday (with the fairy lights) -->
-          <g class="it egg" data-d="12" data-egg="duo" tabindex="0" role="button" aria-label="Two birds">
+          <g class="it egg" data-d="10" data-egg="duo" tabindex="0" role="button" aria-label="Two birds">
             <rect x="110" y="204" width="66" height="40" fill="transparent"/>
             <g class="b-rock"><g transform="translate(126 244) scale(.9)">
               <path class="ln" style="stroke: var(--gold); stroke-width: 1.1" d="M-1.5 0 v-3.6 M2 0 v-3.6"/>
@@ -1093,7 +1152,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
               <g transform="translate(-7.5 -11) rotate(-8)"><use href="#flute"/></g>
             </g></g>
           </g>
-          <g class="it egg" data-d="12" data-egg="bottle" tabindex="0" role="button" aria-label="Champagne">
+          <g class="it egg" data-d="10" data-egg="bottle" tabindex="0" role="button" aria-label="Champagne">
             <rect x="138" y="212" width="11" height="32" fill="transparent"/>
             <g transform="translate(-51.26 39.23) scale(.72)">
               <path d="M268.9 245.6 q1.6 -3.4 3.2 0 Z" class="cork o" style="fill: var(--cork); stroke-width: .6"/>
@@ -1119,6 +1178,19 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
           </g>
 
           <!-- Thursdays 3 Dec and 10 Dec: still to decide -->
+
+          <!-- the picture book on the bench (there from the start) -->
+          <g class="egg" data-egg="book" id="bench-book" tabindex="0" role="button" aria-label="Our picture book">
+            <rect x="172" y="228" width="34" height="20" fill="transparent"/>
+            <g class="act">
+              <path d="M177.6 238.6 L182 242.6 V244.4 L177.6 240.4 Z" class="o" style="fill: var(--bottle); stroke-width: .6"/>
+              <path d="M182 242.6 L200.2 240.8 V242.6 L182 244.4 Z" class="o" style="fill: var(--cream); stroke-width: .5"/>
+              <path d="M177.6 238.6 L195.6 236.8 L200.2 240.8 L182 242.6 Z" class="o" style="fill: var(--rose); stroke-width: .7"/>
+              <path d="M184.6 240.4 l9 -.9 M185.6 241.6 l6 -.6" class="ln" style="stroke: var(--gold); stroke-width: .6"/>
+              <path d="M196 241.4 q.6 3.4 1.8 5.6" style="fill: none; stroke: var(--pastel); stroke-width: 1.1; stroke-linecap: round"/>
+            </g>
+            <path class="twinkle" d="M206 230 l1.1 2.7 l2.7 1.1 l-2.7 1.1 l-1.1 2.7 l-1.1 -2.7 l-2.7 -1.1 l2.7 -1.1 Z" style="fill: var(--gold); animation-delay: -1.3s"/>
+          </g>
 
           <!-- the phone on the beach (there from the start) -->
           <g class="egg" data-egg="phone" id="beach-phone" tabindex="0" role="button" aria-label="Phone">
@@ -1147,9 +1219,9 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   <p class="caps lake-date" id="lake-date"></p>
   <p class="now-playing" id="now-playing" hidden><svg class="icon" aria-hidden="true"><use href="#i-note"/></svg><span id="song-name"></span></p>
 
-  <div class="preview" id="preview">
+  <div class="preview" id="preview" hidden>
     <span class="caps">Preview</span>
-    <input type="range" id="day" min="0" max="30" step="1" value="0" aria-label="Day">
+    <input type="range" id="day" min="0" max="28" step="1" value="0" aria-label="Day">
     <button type="button" id="play">Play</button>
     <output id="day-label" for="day"></output>
   </div>
@@ -1161,6 +1233,20 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     <span class="caps">From Noemi</span>
   </div>
 </footer>
+
+<!-- THE PICTURE BOOK -->
+<div class="book-layer" id="book-layer" hidden>
+  <div class="book-backdrop" id="book-backdrop"></div>
+  <div class="book" id="book" role="dialog" aria-label="Our picture book">
+    <div class="spread" id="spread"><div class="page left"></div><div class="page right"></div></div>
+  </div>
+  <div class="book-nav">
+    <button type="button" id="book-prev" aria-label="Previous page">&lsaquo;</button>
+    <span id="book-where"></span>
+    <button type="button" id="book-next" aria-label="Next page">&rsaquo;</button>
+  </div>
+  <button type="button" class="phone-close" id="book-close" aria-label="Close the book">&times;</button>
+</div>
 
 <!-- THE PHONE -->
 <div class="phone-layer" id="phone" hidden>
@@ -1189,9 +1275,9 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
 
       <div class="app" data-app="photo" hidden>
         <button type="button" class="back" id="photo-back">&lsaquo; Photos</button>
-        <div class="photo-big"><span class="caps" style="color: inherit">Photo</span></div>
+        <img class="photo-big" id="photo-img" alt="">
         <p class="photo-title" id="photo-title"></p>
-        <p class="photo-text">*fill in text*</p>
+        <p class="photo-text" id="photo-text">fill in ur text here</p>
       </div>
 
       <div class="app" data-app="clock" hidden>
@@ -1310,7 +1396,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     $("days").textContent = d; $("ico-days").textContent = d;
     $("days-unit").textContent = d === 1 ? "day" : "days";
     $("days-label").textContent = d === 0 ? "You're home." : "until you're home";
-    $("ring").setAttribute("stroke-dashoffset", (314.16 * (1 - Math.min(1, d / 30))).toFixed(1));
+    $("ring").setAttribute("stroke-dashoffset", (314.16 * (1 - Math.min(1, d / 28))).toFixed(1));
     var hm = t.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
     $("ph-time").textContent = hm; $("ph-big-time").textContent = hm;
     $("ph-date").textContent = t.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
@@ -1374,8 +1460,8 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   });
 
   /* ---------- Lake: days ---------- */
-  var START = new Date(2026, 10, 14);   // 14 Nov: the day she gets the site
-  var LAST = 30;                        // 14 Dec: the day she flies home
+  var START = new Date(2026, 10, 16);   // 16 Nov: the day the site starts
+  var LAST = 28;                        // 14 Dec: the day she flies home
   var items = Array.prototype.slice.call(document.querySelectorAll("#lake .it"));
   var shown = -1;
 
@@ -1394,7 +1480,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   var line = 0;
   function syncBubble() {
     var b = $("bubble");
-    if (shown < 12) { b.hidden = true; return; }
+    if (shown < 10) { b.hidden = true; return; }
     b.className = "bubble " + LINES[line][0];
     b.textContent = LINES[line][1];
     b.hidden = false;
@@ -1420,7 +1506,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     $("lake-date").textContent = fmt(d);
     $("day").value = d;
     $("day-label").textContent = "Day " + d + " of " + LAST;
-    $("now-playing").hidden = d < 4 || !musicOn;
+    $("now-playing").hidden = d < 3 || !musicOn;
     $("notes").toggleAttribute("hidden", !musicOn);
     showSong();
     syncBubble();
@@ -1464,6 +1550,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     }
     if (g.dataset.egg === "duo") nextLine();
     if (g.dataset.egg === "phone") setTimeout(openPhone, 250);
+    if (g.dataset.egg === "book") setTimeout(openBook, 250);
   }
   document.querySelectorAll("#lake .egg").forEach(function (g) {
     if (g.id === "sky") return;
@@ -1492,35 +1579,45 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   }
 
   /* ---------- The phone on the beach ---------- */
-  /* Messages from Noemi: one on every day nothing new appears on the lake. photo: true also adds a photo to Photos */
+  function photoSrc(n) { return "photos/p" + String(n).padStart(3, "0") + ".jpg"; }
+  function thumbSrc(n) { return "thumbs/p" + String(n).padStart(3, "0") + ".jpg"; }
+  /* Messages from Noemi: one on every day nothing new appears on the lake. photo: also lands in Photos */
   var MESSAGES = [
-    { d: 15, time: "09:12", text: "*fill in text*" },
-    { d: 16, time: "18:40", text: "*fill in text*" },
-    { d: 18, time: "12:05", text: "*fill in text*" },
-    { d: 19, time: "20:15", text: "*fill in text*", photo: true },
-    { d: 20, time: "08:30", text: "*fill in text*" },
-    { d: 22, time: "16:22", text: "*fill in text*" },
-    { d: 23, time: "11:48", text: "*fill in text*", photo: true },
-    { d: 24, time: "21:03", text: "*fill in text*" },
-    { d: 26, time: "20:15", text: "*fill in text*", photo: true },
-    { d: 27, time: "10:10", text: "*fill in text*" },
-    { d: 28, time: "19:30", text: "*fill in text*" }
+    { d: 13, time: "09:12", text: "fill in ur text here" },
+    { d: 15, time: "18:40", text: "fill in ur text here" },
+    { d: 17, time: "20:15", text: "fill in ur text here", photo: 40 },
+    { d: 19, time: "12:05", text: "fill in ur text here" },
+    { d: 20, time: "08:30", text: "fill in ur text here", photo: 88 },
+    { d: 22, time: "16:22", text: "fill in ur text here" },
+    { d: 23, time: "11:48", text: "fill in ur text here" },
+    { d: 24, time: "20:15", text: "fill in ur text here", photo: 100 },
+    { d: 26, time: "21:03", text: "fill in ur text here" },
+    { d: 27, time: "10:10", text: "fill in ur text here" }
   ];
-  var PHOTOS = [["The lake"], ["Thursday nights"], ["*fill in text*"], ["*fill in text*"], ["*fill in text*"], ["*fill in text*"]];
+  /* Photos already on the phone from the start (the ones not in the book or in a message) */
+  var GALLERY = [10, 14, 18, 21, 23, 25, 32, 35, 37, 39, 44, 47, 52, 55, 56, 60, 62, 65, 67, 68, 69, 70, 71, 74, 76, 78, 79, 80, 81, 82, 83, 86, 87, 90, 91, 94, 95, 96, 98, 7, 16];
   var photoBack = "gallery";
-  function showPhoto(title, from) { $("photo-title").textContent = title; photoBack = from; $("photo-back").innerHTML = from === "messages" ? "&lsaquo; Noemi" : "&lsaquo; Photos"; openApp("photo"); }
+  function showPhoto(n, title, from) {
+    $("photo-img").src = photoSrc(n);
+    $("photo-title").textContent = title || "";
+    photoBack = from;
+    $("photo-back").innerHTML = from === "messages" ? "&lsaquo; Noemi" : "&lsaquo; Photos";
+    openApp("photo");
+  }
   $("photo-back").addEventListener("click", function (e) { e.stopImmediatePropagation(); openApp(photoBack); }, true);
+  function fromLabel(m) { return "From Noemi, " + dateOf(m.d).toLocaleDateString("en-GB", { day: "numeric", month: "long" }); }
+  function tile(n, title) {
+    var b = document.createElement("button");
+    b.type = "button"; b.setAttribute("aria-label", "Open photo");
+    var im = document.createElement("img"); im.src = thumbSrc(n); im.alt = ""; im.loading = "lazy";
+    b.appendChild(im);
+    b.addEventListener("click", function () { showPhoto(n, title, "gallery"); });
+    return b;
+  }
   function buildGallery() {
     var g = $("photos"); g.innerHTML = "";
-    var list = MESSAGES.filter(function (m) { return m.photo && m.d <= shown; }).reverse()
-      .map(function (m) { return ["From Noemi, " + dateOf(m.d).toLocaleDateString("en-GB", { day: "numeric", month: "long" })]; })
-      .concat(PHOTOS);
-    list.forEach(function (p) {
-      var b = document.createElement("button");
-      b.type = "button"; b.textContent = "Photo"; b.setAttribute("aria-label", "Photo: " + p[0]);
-      b.addEventListener("click", function () { showPhoto(p[0], "gallery"); });
-      g.appendChild(b);
-    });
+    MESSAGES.filter(function (m) { return m.photo && m.d <= shown; }).reverse().forEach(function (m) { g.appendChild(tile(m.photo, fromLabel(m))); });
+    GALLERY.forEach(function (n) { g.appendChild(tile(n, "")); });
   }
   function buildChat() {
     var c = $("chat"); c.innerHTML = "";
@@ -1531,8 +1628,9 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
       day.textContent = dateOf(m.d).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" }) + ", " + m.time;
       c.appendChild(day);
       if (m.photo) {
-        var pb = document.createElement("button"); pb.type = "button"; pb.className = "pic-msg"; pb.textContent = "Photo";
-        pb.addEventListener("click", function () { showPhoto("From Noemi, " + dateOf(m.d).toLocaleDateString("en-GB", { day: "numeric", month: "long" }), "messages"); });
+        var pb = document.createElement("button"); pb.type = "button"; pb.className = "pic-msg"; pb.setAttribute("aria-label", "Open photo");
+        var im = document.createElement("img"); im.src = thumbSrc(m.photo); im.alt = ""; im.loading = "lazy"; pb.appendChild(im);
+        pb.addEventListener("click", function () { showPhoto(m.photo, fromLabel(m), "messages"); });
         c.appendChild(pb);
       }
       var t = document.createElement("p"); t.className = "msg"; t.textContent = m.text; c.appendChild(t);
@@ -1575,8 +1673,99 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   $("phone-backdrop").addEventListener("click", closePhone);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("phone").hidden) closePhone(); });
 
+  /* ---------- The picture book: always complete, from the start ---------- */
+  var BOOK = [
+    { pics: [5, 6] }, { pics: [1, 3] }, { pics: [13, 9, 11] }, { pics: [12, 8] },
+    { pics: [4, 15] }, { pics: [20, 22, 24] }, { pics: [26, 36, 38] }, { pics: [29, 30, 28] },
+    { pics: [31, 33, 34] }, { pics: [42, 41] }, { pics: [45, 43, 46] }, { pics: [50, 49] },
+    { pics: [53, 64, 66] }, { pics: [51, 57, 61] }, { pics: [73, 77, 84] }, { pics: [89, 93, 99] }
+  ].map(function (p) { p.text = p.text || "fill in ur text here"; return p; });
+  var PAGES = [{ cover: true }].concat(BOOK).concat([{ back: true }]);
+  function pageHTML(i, side) {
+    var p = PAGES[i];
+    if (!p) return '<div class="page ' + side + ' blank"></div>';
+    if (p.cover) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-otter"/></svg><span class="t">fill in ur text here</span><span class="s">6 August to 14 November</span></div>';
+    if (p.back) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-bow"/></svg><span class="s">fill in ur text here</span></div>';
+    var imgs = p.pics.map(function (n) { return '<img src="' + photoSrc(n) + '" alt="" loading="lazy">'; }).join("");
+    return '<div class="page ' + side + '"><div class="pics n' + p.pics.length + '">' + imgs + '</div><p class="ptext">' + p.text + '</p><span class="pnum">' + i + '</span></div>';
+  }
+  var bookEl = $("book"), spreadEl = $("spread"), single = false, at = 0, turning = false;
+  /* spreads: 0 = cover on the right; k = pages 2k-1 and 2k */
+  function spreadPages(k) { return k === 0 ? [-1, 0] : [2 * k - 1, 2 * k]; }
+  var lastSpread = Math.ceil((PAGES.length - 1) / 2);
+  function renderBook() {
+    single = window.innerWidth < 640;
+    bookEl.classList.toggle("single", single);
+    if (single) {
+      spreadEl.innerHTML = pageHTML(at, "right");
+      $("book-where").textContent = (at + 1) + " / " + PAGES.length;
+      $("book-prev").disabled = at === 0; $("book-next").disabled = at === PAGES.length - 1;
+    } else {
+      var k = Math.ceil(at / 2), pg = spreadPages(k);
+      spreadEl.innerHTML = pageHTML(pg[0], "left") + pageHTML(pg[1], "right");
+      $("book-where").textContent = (k + 1) + " / " + (lastSpread + 1);
+      $("book-prev").disabled = k === 0; $("book-next").disabled = k === lastSpread;
+    }
+  }
+  function turnPage(dir) {
+    if (turning) return;
+    if (single) {
+      var n = at + dir; if (n < 0 || n >= PAGES.length) return;
+      at = n; renderBook(); return;
+    }
+    var k = Math.ceil(at / 2), nk = k + dir;
+    if (nk < 0 || nk > lastSpread) return;
+    var from = spreadPages(k), to = spreadPages(nk);
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    at = nk === 0 ? 0 : 2 * nk - 1;
+    if (reduce) { renderBook(); return; }
+    turning = true;
+    var leaf = document.createElement("div");
+    if (dir > 0) {
+      spreadEl.innerHTML = pageHTML(from[0], "left") + pageHTML(to[1], "right");
+      leaf.className = "leaf fwd";
+      leaf.innerHTML = pageHTML(from[1], "right") + pageHTML(to[0], "left backface");
+    } else {
+      spreadEl.innerHTML = pageHTML(to[0], "left") + pageHTML(from[1], "right");
+      leaf.className = "leaf bwd";
+      leaf.innerHTML = pageHTML(from[0], "left") + pageHTML(to[1], "right backface");
+    }
+    bookEl.appendChild(leaf);
+    void leaf.offsetWidth;
+    leaf.style.transform = "rotateY(" + (dir > 0 ? -180 : 180) + "deg)";
+    setTimeout(function () { leaf.remove(); turning = false; renderBook(); }, 880);
+  }
+  $("book-next").addEventListener("click", function () { turnPage(1); });
+  $("book-prev").addEventListener("click", function () { turnPage(-1); });
+  var bookFocus = null;
+  function openBook() {
+    bookFocus = document.activeElement; at = 0; renderBook();
+    $("book-layer").hidden = false; document.body.style.overflow = "hidden"; $("book-next").focus();
+  }
+  function closeBook() {
+    $("book-layer").hidden = true; document.body.style.overflow = "";
+    if (bookFocus && bookFocus.focus) bookFocus.focus();
+  }
+  $("book-close").addEventListener("click", closeBook);
+  $("book-backdrop").addEventListener("click", closeBook);
+  document.addEventListener("keydown", function (e) {
+    if ($("book-layer").hidden) return;
+    if (e.key === "Escape") closeBook();
+    if (e.key === "ArrowRight") turnPage(1);
+    if (e.key === "ArrowLeft") turnPage(-1);
+  });
+  var sx = null;
+  bookEl.addEventListener("pointerdown", function (e) { sx = e.clientX; });
+  bookEl.addEventListener("pointerup", function (e) { if (sx === null) return; var dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 40) turnPage(dx < 0 ? 1 : -1); });
+  window.addEventListener("resize", function () { if (!$("book-layer").hidden) renderBook(); });
+
+  /* The preview slider only shows for Noemi, at the address ending in #preview */
+  function syncPreview() { $("preview").hidden = location.hash !== "#preview"; }
+  window.addEventListener("hashchange", syncPreview);
+  syncPreview();
+
   setDay(realDay(), false);
-  setInterval(function () { if (shown >= 12) nextLine(); }, 4500);
+  setInterval(function () { if (shown >= 10) nextLine(); }, 4500);
 })();
 </script>
 
