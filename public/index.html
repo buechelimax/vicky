@@ -408,6 +408,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .book.single .end-in { font-size: clamp(1rem, 4vw, 1.2rem); }
 .end-in .icon { width: 1.6em; height: 1.6em; color: var(--dc); }
 .end-text, .end-quote { margin: 0; white-space: pre-line; }
+.end-quote .qby { display: block; margin-top: .35em; font-variant-caps: all-small-caps; letter-spacing: .1em; }
+.qform { display: grid; gap: 6px; width: 100%; }
+.qform textarea { font: inherit; font-size: .9em; padding: 6px 8px; border: 1px solid var(--dc); border-radius: 8px; background: #fffafc; color: #3a2a3c; resize: vertical; }
+.end-in .dict-btn { border-color: var(--dc); color: #8a4a62; background: rgba(255, 255, 255, .5); }
+.end-in .dict-btn.solid { background: var(--dc); color: #fff; }
 .end-quote { font-size: .78em; line-height: 1.35; color: #8a7890; padding-top: .7em; border-top: 1px solid var(--dc); max-width: 80%; }
 .leaf { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; transition: transform .85s cubic-bezier(.45,.05,.3,1); z-index: 3; }
 .leaf.fwd { left: 50%; transform-origin: left center; }
@@ -1864,7 +1869,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     if (p.cover) return '<div class="page ' + side + ' cover">' + cornersHTML() + '<svg class="icon" aria-hidden="true"><use href="#i-otter"/></svg><span class="t">' + esc(TEXTS.cover) + '</span><span class="s">our time in singapore</span><svg class="icon cheart" aria-hidden="true"><use href="#i-heart"/></svg></div>';
     if (p.end) return '<div class="page ' + side + ' tinted endpage" style="--pg: hsl(345 62% 94%); --dc: hsl(345 50% 66%); --dot: hsl(345 45% 72% / .35)">' + decoHTML(1) +
       '<div class="end-in"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><p class="end-text">' + esc(TEXTS.end) + '</p>' +
-      (TEXTS["end quote"] ? '<p class="end-quote">' + esc(TEXTS["end quote"]) + '</p>' : '') + '</div></div>';
+      quoteHTML() + '</div></div>';
     if (p.intro) return '<div class="page ' + side + ' intro-page"><div class="insert-wrap"><span class="tape-l" aria-hidden="true"></span><span class="tape-r" aria-hidden="true"></span><div class="insert"><p class="insert-head">read me first</p>' +
       String(TEXTS.intro).split(/\n\s*\n/).map(function (t) { return '<p class="para">' + esc(t.trim()) + '</p>'; }).join("") + '</div></div></div>';
     if (p.back) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true" style="width: 3.4rem; height: 3.4rem"><use href="#i-bow"/></svg></div>';
@@ -1877,6 +1882,16 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     }).join("");
     return '<div class="page ' + side + ' tinted" style="' + pageColours(p) + '">' + decoHTML(p.n) + '<div class="pics n' + p.pics.length + '">' + imgs + '</div><p class="ptext">' + esc(TEXTS["page " + p.n] || p.text) + '</p><span class="pnum">' + p.n + '</span></div>';
   }
+  /* The closing quote: Noemi pastes it in herself on the last page (only she sees the button); saved on the site's server */
+  var QUOTE = "";
+  function quoteHTML() {
+    var q = QUOTE || TEXTS["end quote"] || "";
+    return (q ? '<p class="end-quote">' + esc(q) + '<span class="qby">W. B. Yeats</span></p>' : '') +
+      (isNoemi ? '<button type="button" class="dict-btn" data-q="edit">' + (q ? "Change the quote" : "Add the quote") + '</button>' : '');
+  }
+  fetch("api/quote", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
+    if (j && j.text) { QUOTE = j.text; if (!$("book-layer").hidden) renderBook(); }
+  }).catch(function () {});
   var bookEl = $("book"), spreadEl = $("spread"), single = false, at = 0, turning = false;
   /* spreads: 0 = cover on the right; k = pages 2k-1 and 2k */
   function spreadPages(k) { return k === 0 ? [-1, 0] : [2 * k - 1, 2 * k]; }
@@ -1938,9 +1953,25 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   $("book-backdrop").addEventListener("click", closeBook);
   document.addEventListener("keydown", function (e) {
     if ($("book-layer").hidden) return;
+    if (/^(TEXTAREA|INPUT)$/.test(e.target.tagName)) return;
     if (e.key === "Escape") closeBook();
     if (e.key === "ArrowRight") turnPage(1);
     if (e.key === "ArrowLeft") turnPage(-1);
+  });
+  spreadEl.addEventListener("click", function (e) {
+    var q = e.target.closest("[data-q]"); if (!q) return;
+    var box = q.closest(".end-in");
+    if (q.dataset.q === "edit") {
+      var old = box.querySelector(".end-quote"); if (old) old.remove();
+      q.outerHTML = '<div class="qform"><textarea rows="3" placeholder="Paste the two lines here"></textarea><div class="dict-btns"><button type="button" class="dict-btn solid" data-q="save">Save</button><button type="button" class="dict-btn" data-q="cancel">Cancel</button></div></div>';
+      var ta = box.querySelector("textarea"); ta.value = QUOTE || TEXTS["end quote"] || ""; ta.focus();
+    } else if (q.dataset.q === "cancel") renderBook();
+    else if (q.dataset.q === "save") {
+      var text = box.querySelector("textarea").value.trim();
+      q.disabled = true; q.textContent = "Saving...";
+      api("quote", { text: text }).then(function () { QUOTE = text; TEXTS["end quote"] = text; renderBook(); })
+        .catch(function () { q.disabled = false; q.textContent = "Didn't save, try again"; });
+    }
   });
   /* Videos in the book: tap to play with sound, tap again to pause */
   spreadEl.addEventListener("click", function (e) {
@@ -1979,7 +2010,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   function loadDict() {
     api("words").then(function (w) { WORDS = w; renderDict(); })
       .catch(function () { $("dict-list").innerHTML = '<li class="dict-note">The dictionary only opens on the real site.</li>'; });
-    if (dictKey) api("pending").then(function (p) { isNoemi = true; PENDING = p; setMode(); renderDict(); })
+    if (dictKey) api("pending").then(function (p) { isNoemi = true; PENDING = p; setMode(); renderDict(); if (!$("book-layer").hidden) renderBook(); })
       .catch(function (e) { if (e && e.error === "not allowed") { dictKey = null; try { localStorage.removeItem("vicky-key"); } catch (x) {} } });
     var ids = MINE.filter(function (m) { return m.status === "pending"; }).map(function (m) { return m.id; });
     if (ids.length) api("mine?ids=" + ids.join(",")).then(function (rows) {

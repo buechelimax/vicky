@@ -39,6 +39,7 @@ export class Dictionary extends DurableObject {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       word TEXT NOT NULL, kind TEXT NOT NULL DEFAULT '', meaning TEXT NOT NULL DEFAULT '',
       also TEXT NOT NULL DEFAULT '', by TEXT NOT NULL, status TEXT NOT NULL, created INTEGER NOT NULL)`);
+    this.sql.exec("CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
     const n = this.sql.exec("SELECT COUNT(*) AS n FROM words").one().n;
     if (n === 0) {
       for (const w of SEED) {
@@ -79,6 +80,14 @@ export class Dictionary extends DurableObject {
     return { ok: true };
   }
   setStatus(id, status) { this.sql.exec("UPDATE words SET status = ? WHERE id = ?", status, +id); return { ok: true }; }
+  getQuote() {
+    const r = this.sql.exec("SELECT value FROM settings WHERE key = 'quote'").toArray();
+    return { text: r.length ? r[0].value : "" };
+  }
+  setQuote(text) {
+    this.sql.exec("INSERT INTO settings (key, value) VALUES ('quote', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", clean(text, 400));
+    return { ok: true };
+  }
   remove(id) { this.sql.exec("DELETE FROM words WHERE id = ?", +id); return { ok: true }; }
 }
 
@@ -100,6 +109,7 @@ export default {
     }
 
     if (route === "GET /api/words") return json(await db.list());
+    if (route === "GET /api/quote") return json(await db.getQuote());
     if (route === "GET /api/mine") {
       const ids = (url.searchParams.get("ids") || "").split(",").map(Number).filter((n) => n > 0).slice(0, 50);
       return json(await db.mine(ids));
@@ -118,6 +128,7 @@ export default {
     }
     if (route === "POST /api/edit") return json(await db.edit(body));
     if (route === "POST /api/delete") return json(await db.remove(body.id));
+    if (route === "POST /api/quote") return json(await db.setQuote(body.text));
     return json({ error: "not found" }, 404);
   }
 };
