@@ -252,7 +252,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .msgs-head b { font-weight: 500; font-size: 1.3rem; }
 .chat { display: grid; gap: 6px; }
 .chat .day { text-align: center; font-size: .85rem; color: var(--muted); margin: 10px 0 2px; }
-.chat .msg { justify-self: start; max-width: 80%; padding: 7px 12px; border-radius: 18px 18px 18px 6px; background: var(--surface); color: var(--ink); font-size: 1.05rem; line-height: 1.3; box-shadow: 0 1px 3px rgba(20, 24, 50, .1); }
+.chat .msg { white-space: pre-line; justify-self: start; max-width: 80%; padding: 7px 12px; border-radius: 18px 18px 18px 6px; background: var(--surface); color: var(--ink); font-size: 1.05rem; line-height: 1.3; box-shadow: 0 1px 3px rgba(20, 24, 50, .1); }
 .chat .pic-msg { justify-self: start; width: 62%; border: 0; padding: 0; border-radius: 18px 18px 18px 6px; cursor: pointer; overflow: hidden; background: var(--tile); }
 .chat .pic-msg img { display: block; width: 100%; height: auto; }
 .chat .empty { text-align: center; color: var(--muted); margin-top: 40px; }
@@ -313,7 +313,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .pics.n3 { grid-template-columns: 1fr 1fr; grid-template-rows: 1.25fr 1fr; }
 .pics.n3 img:first-child { grid-column: 1 / -1; }
 .pics img { width: 100%; height: 100%; min-height: 0; object-fit: cover; border: 4px solid #ffffff; border-radius: 2px; box-shadow: 0 2px 6px rgba(40, 20, 30, .22); background: #eee; }
-.ptext { margin: 0; font-size: clamp(.8rem, 1.45vw, 1.12rem); line-height: 1.35; min-height: 2.7em; }
+.ptext { white-space: pre-line; margin: 0; font-size: clamp(.8rem, 1.45vw, 1.12rem); line-height: 1.35; min-height: 2.7em; }
 .book.single .ptext { font-size: clamp(.95rem, 3.8vw, 1.15rem); }
 .pnum { position: absolute; bottom: 2.4%; font-size: .8rem; color: var(--book-muted); font-variant-numeric: lining-nums; }
 .page.left .pnum { left: 6%; }
@@ -1260,21 +1260,13 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
         <div class="home-date caps" id="ph-date"></div>
         <div class="apps">
           <button type="button" class="app-btn" data-open="messages"><span class="app-ico ico-msgs"><svg class="icon" aria-hidden="true"><use href="#i-bubble"/></svg><span class="badge" id="badge" hidden></span></span>Messages</button>
-          <button type="button" class="app-btn" data-open="gallery"><span class="app-ico ico-gallery"><svg class="icon" aria-hidden="true"><use href="#i-photo"/></svg></span>Photos</button>
           <button type="button" class="app-btn" data-open="countdown"><span class="app-ico ico-count" aria-hidden="true"><span class="top">DAYS</span><span class="num" id="ico-days">41</span></span>Countdown</button>
           <button type="button" class="app-btn" data-open="clock"><span class="app-ico ico-clock"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span>Clock</button>
-          <button type="button" class="app-btn" data-open="games"><span class="app-ico ico-folder" aria-hidden="true"><span></span><span></span><span></span><span></span></span>Games</button>
         </div>
       </div>
 
-      <div class="app" data-app="gallery" hidden>
-        <button type="button" class="back" data-open="home">&lsaquo; Home</button>
-        <h3>Photos</h3>
-        <div class="photos" id="photos"></div>
-      </div>
-
       <div class="app" data-app="photo" hidden>
-        <button type="button" class="back" id="photo-back">&lsaquo; Photos</button>
+        <button type="button" class="back" id="photo-back">&lsaquo; Noemi</button>
         <img class="photo-big" id="photo-img" alt="">
         <p class="photo-title" id="photo-title"></p>
         <p class="photo-text" id="photo-text">fill in ur text here</p>
@@ -1304,20 +1296,6 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
         <button type="button" class="back" data-open="home">&lsaquo; Home</button>
         <div class="msgs-head"><span class="avatar" aria-hidden="true">N</span><b>Noemi</b></div>
         <div class="chat" id="chat"></div>
-      </div>
-
-      <div class="app" data-app="games" hidden>
-        <button type="button" class="back" data-open="home">&lsaquo; Home</button>
-        <h3>Games</h3>
-        <div class="apps">
-          <button type="button" class="app-btn" data-open="soon"><span class="app-ico ico-game"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></span>Two truths and a lie</button>
-          <button type="button" class="app-btn" data-open="soon"><span class="app-ico ico-game b"><svg class="icon" aria-hidden="true"><use href="#i-dice"/></svg></span>Would you rather</button>
-        </div>
-      </div>
-
-      <div class="app" data-app="soon" hidden>
-        <button type="button" class="back" data-open="games">&lsaquo; Games</button>
-        <p class="soon">Coming soon</p>
       </div>
 
       <button type="button" class="homebar" data-open="home" aria-label="Home screen"></button>
@@ -1601,7 +1579,6 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     $("photo-img").src = photoSrc(n);
     $("photo-title").textContent = title || "";
     photoBack = from;
-    $("photo-back").innerHTML = from === "messages" ? "&lsaquo; Noemi" : "&lsaquo; Photos";
     openApp("photo");
   }
   $("photo-back").addEventListener("click", function (e) { e.stopImmediatePropagation(); openApp(photoBack); }, true);
@@ -1645,7 +1622,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     $("badge").hidden = !u.length; $("badge").textContent = u.length;
     $("phone-dot").toggleAttribute("hidden", !u.length);
     $("phone-lit").toggleAttribute("hidden", !u.length);
-    buildGallery(); buildChat();
+    buildChat();
   }
   function markRead() {
     lastRead = shown;
@@ -1681,13 +1658,14 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
     { pics: [53, 64, 66] }, { pics: [51, 57, 61] }, { pics: [73, 77, 84] }, { pics: [89, 93, 99] }
   ].map(function (p) { p.text = p.text || "fill in ur text here"; return p; });
   var PAGES = [{ cover: true }].concat(BOOK).concat([{ back: true }]);
+  function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function pageHTML(i, side) {
     var p = PAGES[i];
     if (!p) return '<div class="page ' + side + ' blank"></div>';
-    if (p.cover) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-otter"/></svg><span class="t">fill in ur text here</span><span class="s">6 August to 14 November</span></div>';
-    if (p.back) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-bow"/></svg><span class="s">fill in ur text here</span></div>';
+    if (p.cover) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-otter"/></svg><span class="t">' + esc(TEXTS.cover) + '</span><span class="s">6 August to 14 November</span></div>';
+    if (p.back) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-bow"/></svg><span class="s" style="white-space: pre-line">' + esc(TEXTS.back) + '</span></div>';
     var imgs = p.pics.map(function (n) { return '<img src="' + photoSrc(n) + '" alt="" loading="lazy">'; }).join("");
-    return '<div class="page ' + side + '"><div class="pics n' + p.pics.length + '">' + imgs + '</div><p class="ptext">' + p.text + '</p><span class="pnum">' + i + '</span></div>';
+    return '<div class="page ' + side + '"><div class="pics n' + p.pics.length + '">' + imgs + '</div><p class="ptext">' + esc(TEXTS["page " + i] || p.text) + '</p><span class="pnum">' + i + '</span></div>';
   }
   var bookEl = $("book"), spreadEl = $("spread"), single = false, at = 0, turning = false;
   /* spreads: 0 = cover on the right; k = pages 2k-1 and 2k */
@@ -1763,6 +1741,38 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   function syncPreview() { $("preview").hidden = location.hash !== "#preview"; }
   window.addEventListener("hashchange", syncPreview);
   syncPreview();
+
+  /* ---------- Texts: typed into texts.txt (editable on GitHub), read when the page opens ---------- */
+  var TEXTS = { cover: "fill in ur text here", back: "fill in ur text here" };
+  function readTexts(raw) {
+    var key = null, buf = [], out = {};
+    function flush() { if (key) out[key] = buf.join("\n").trim(); buf = []; }
+    raw.replace(/\r/g, "").split("\n").forEach(function (ln) {
+      var m = ln.match(/^\s*\[(.+?)\]\s*$/);
+      if (m) { flush(); key = m[1].trim().toLowerCase(); return; }
+      if (/^\s*#/.test(ln)) return;
+      if (key) buf.push(ln);
+    });
+    flush();
+    return out;
+  }
+  function applyTexts(t) {
+    for (var k in t) if (t[k]) TEXTS[k] = t[k];
+    MESSAGES.forEach(function (m) {
+      var label = "message " + dateOf(m.d).toLocaleDateString("en-GB", { day: "numeric", month: "long" }).toLowerCase();
+      if (TEXTS[label]) m.text = TEXTS[label];
+    });
+    if (TEXTS.birds) {
+      var lines = TEXTS.birds.split("\n").map(function (l) { return l.trim(); }).filter(Boolean).map(function (l) {
+        var m = l.match(/^(cockatoo|cock-of-the-rock|rock)\s*:\s*(.+)$/i);
+        return m ? [/^cockatoo$/i.test(m[1]) ? "right" : "left", m[2]] : null;
+      }).filter(Boolean);
+      if (lines.length) { LINES = lines; line = 0; syncBubble(); }
+    }
+    buildChat();
+    if (!$("book-layer").hidden) renderBook();
+  }
+  fetch("texts.txt", { cache: "no-store" }).then(function (r) { return r.ok ? r.text() : ""; }).then(function (raw) { if (raw) applyTexts(readTexts(raw)); }).catch(function () {});
 
   setDay(realDay(), false);
   setInterval(function () { if (shown >= 10) nextLine(); }, 4500);

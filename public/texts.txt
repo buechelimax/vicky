@@ -1,0 +1,121 @@
+# Texts for Vicky's site.
+# Write under each [heading]. You can use several lines. Lines starting with # are only notes and never show up.
+# Don't change the [headings] themselves. After you save (Commit changes), the site updates within a minute or two.
+
+# ---------- Picture book ----------
+[cover]
+fill in ur text here
+
+# page 1: Welcome party
+[page 1]
+fill in ur text here
+
+# page 2: Rooftop bar
+[page 2]
+fill in ur text here
+
+# page 3: Alkaff Mansion
+[page 3]
+fill in ur text here
+
+# page 4: Friends
+[page 4]
+fill in ur text here
+
+# page 5: Red club lights
+[page 5]
+fill in ur text here
+
+# page 6: Campus days
+[page 6]
+fill in ur text here
+
+# page 7: The field with the skyline
+[page 7]
+fill in ur text here
+
+# page 8: Prosecco club
+[page 8]
+fill in ur text here
+
+# page 9: Street and mirror selfies
+[page 9]
+fill in ur text here
+
+# page 10: Rooftop pool
+[page 10]
+fill in ur text here
+
+# page 11: Night walk, Marina Bay Sands
+[page 11]
+fill in ur text here
+
+# page 12: Nails day
+[page 12]
+fill in ur text here
+
+# page 13: Costumes
+[page 13]
+fill in ur text here
+
+# page 14: View from the top
+[page 14]
+fill in ur text here
+
+# page 15: Lace night out
+[page 15]
+fill in ur text here
+
+# page 16: The last dinner
+[page 16]
+fill in ur text here
+
+[back]
+fill in ur text here
+
+# ---------- Messages from Noemi (they arrive on these days) ----------
+# 29 November
+[message 29 November]
+fill in ur text here
+
+# 1 December
+[message 1 December]
+fill in ur text here
+
+# 3 December (comes with a photo)
+[message 3 December]
+fill in ur text here
+
+# 5 December
+[message 5 December]
+fill in ur text here
+
+# 6 December (comes with a photo)
+[message 6 December]
+fill in ur text here
+
+# 8 December
+[message 8 December]
+fill in ur text here
+
+# 9 December
+[message 9 December]
+fill in ur text here
+
+# 10 December (comes with a photo)
+[message 10 December]
+fill in ur text here
+
+# 12 December
+[message 12 December]
+fill in ur text here
+
+# 13 December
+[message 13 December]
+fill in ur text here
+
+# ---------- The two birds on the bench (from 26 November) ----------
+# One line each, starting with cockatoo: or rock: . They take turns in this order.
+[birds]
+cockatoo: Salute
+rock: Cheers, my guy
