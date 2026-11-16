@@ -4,11 +4,11 @@
 
 # ---------- Picture book ----------
 [cover]
-picture book
+Picture Book
 
 # The note tucked in after the cover. It opens by itself the first time she visits.
 [intro]
-hi vicky!
+Hello, pwincess
 
 i made this little lake for you, for the time between me leaving and you flying home on 14 december.
 
@@ -20,71 +20,87 @@ tap the radio for music. drag the sun down to make it night, or the moon down to
 
 this picture book is our time in singapore. it's all there from day one, so flip through it whenever you want. this note stays in here, so you can always come back to it.
 
-love, noemi
+love, your boo
 
-# page 1: Welcome party
+# page 1: Alkaff Mansion (013, 011)
 [page 1]
 fill in ur text here
 
-# page 2: Dinner
+# page 2: Alkaff Mansion (007, 009)
 [page 2]
 fill in ur text here
 
-# page 3: Lace night out
+# page 3: Merlion, Marina Bay, hawker centre (gagi, 016, 018)
 [page 3]
 fill in ur text here
 
-# page 4: Costumes
+# page 4: Night walk, Marina Bay Sands (video 2, 045, 043)
 [page 4]
 fill in ur text here
 
-# page 5: View from the top
+# page 5: The field with the skyline (038, 036, 026)
 [page 5]
 fill in ur text here
 
-# page 6: Nails day
+# page 6: Rooftop pool (042, 041)
 [page 6]
 fill in ur text here
 
-# page 7: Night walk, Marina Bay Sands (with a video)
+# page 7: Nails day (050, 049)
 [page 7]
 fill in ur text here
 
-# page 8: Rooftop pool
+# page 8: Welcome party (005, 006)
 [page 8]
 fill in ur text here
 
-# page 9: The field with the skyline
+# page 9: Lace night out (084, 077, 073)
 [page 9]
 fill in ur text here
 
-# page 10: Street and mirror selfies
+# page 10: Costumes (066, 064, 053)
 [page 10]
 fill in ur text here
 
-# page 11: Prosecco club
+# page 11: View from the top (061, 057, 051)
 [page 11]
 fill in ur text here
 
-# page 12: Campus days
+# page 12: Street and mirror selfies (034, 033, 031)
 [page 12]
 fill in ur text here
 
-# page 13: Red club lights (with a video)
+# page 13: Prosecco club (030, 029, 028)
 [page 13]
 fill in ur text here
 
-# page 14: Alkaff Mansion
+# page 14: Campus days (024, 022, 020)
 [page 14]
 fill in ur text here
 
-# page 15: Friends
+# page 15: Red club lights (video 1, 015, 004)
 [page 15]
 fill in ur text here
 
-# page 16: Rooftop bar
+# page 16: Friends (012, 008)
 [page 16]
 fill in ur text here
+
+# page 17: Rooftop bar (003, 001)
+[page 17]
+fill in ur text here
+
+# page 18: Dinner, the last page (093, 097, 100)
+[page 18]
+fill in ur text here
+
+# The last page, after all the photos
+[end]
+this is the end. thank you for making this exchange not only funny, memorable and meaningful, but also something i can look back on until the end of days
+
+# The two lines from the poem go here (paste them in yourself). They show at the bottom of the last page, under a thin line.
+[end quote]
+
 
 [back]
 fill in ur text here

@@ -391,6 +391,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, .egg:focus-visible {
 .book.single .cover .t { font-size: clamp(1.8rem, 8vw, 2.6rem); }
 .cover .s { font-variant-caps: all-small-caps; letter-spacing: .14em; font-size: clamp(.85rem, 1.5vw, 1.1rem); }
 .cover .icon { width: 2.6rem; height: 2.6rem; }
+.cover .cheart { width: 1.9rem; height: 1.9rem; color: #fff0f4; margin-top: 4px; }
+.cfl { position: absolute; width: 24%; max-width: 120px; aspect-ratio: 1; pointer-events: none; --fc: #f2c94c; }
+.cfl.tl { top: 1.5%; left: 2%; }
+.cfl.tr { top: 1.5%; right: 2%; transform: scaleX(-1); }
+.cfl.bl { bottom: 1.5%; left: 2%; transform: scaleY(-1); }
+.cfl.br { bottom: 1.5%; right: 2%; transform: scale(-1, -1); }
+/* Photo pages: a soft colour picked from the page's own photos, tiny dots, and little otters, flowers and hearts in the margins */
+.page.tinted { background-color: var(--pg);
+  background-image: radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, .32), rgba(255, 255, 255, 0) 72%), radial-gradient(var(--dot) 1.1px, transparent 1.6px);
+  background-size: 100% 100%, 18px 18px; }
+.page.tinted .pics, .page.tinted .ptext, .end-in { position: relative; z-index: 1; }
+.deco { position: absolute; z-index: 0; color: var(--dc); opacity: .95; pointer-events: none; --fc: #fbf3e4; }
+.endpage { justify-content: center; align-items: center; text-align: center; }
+.end-in { max-width: 86%; display: grid; justify-items: center; gap: .9em; font-size: clamp(.85rem, 1.5vw, 1.15rem); line-height: 1.45; }
+.book.single .end-in { font-size: clamp(1rem, 4vw, 1.2rem); }
+.end-in .icon { width: 1.6em; height: 1.6em; color: var(--dc); }
+.end-text, .end-quote { margin: 0; white-space: pre-line; }
+.end-quote { font-size: .92em; color: #6b5a72; padding-top: .9em; border-top: 1px solid var(--dc); }
 .leaf { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; transition: transform .85s cubic-bezier(.45,.05,.3,1); z-index: 3; }
 .leaf.fwd { left: 50%; transform-origin: left center; }
 .leaf.bwd { left: 0; transform-origin: right center; }
@@ -614,6 +632,13 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
       </g>
       <circle cx="18.5" cy="23.5" r="1.8" fill="currentColor"/><circle cx="29.5" cy="23.5" r="1.8" fill="currentColor"/>
       <ellipse cx="24" cy="28.5" rx="2.8" ry="2" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 48 48">
+      <path d="M24 41C13.5 33 5.5 26.5 5.5 17.5 5.5 11.8 9.8 7.5 15.2 7.5c3.9 0 7 2.2 8.8 5.6 1.8-3.4 4.9-5.6 8.8-5.6 5.4 0 9.7 4.3 9.7 10 0 9-8 15.5-18.5 23.5Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-flower" viewBox="0 0 48 48">
+      <g fill="currentColor"><circle cx="24" cy="12.5" r="8.5"/><circle cx="35" cy="20.5" r="8.5"/><circle cx="30.8" cy="33.5" r="8.5"/><circle cx="17.2" cy="33.5" r="8.5"/><circle cx="13" cy="20.5" r="8.5"/></g>
+      <circle cx="24" cy="24" r="5.6" style="fill: var(--fc, #f2c94c)"/>
     </symbol>
     <symbol id="i-bow" viewBox="0 0 48 48">
       <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -1776,30 +1801,65 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   /* ---------- The picture book: always complete, from the start ---------- */
   /* Oldest first: the welcome party, then her folder from the bottom up. "v1"/"v2" are the videos */
   var BOOK = [
-    { pics: [5, 6] },            /* 1 Welcome party */
-    { pics: [99, 93, 89] },      /* 2 Dinner */
-    { pics: [84, 77, 73] },      /* 3 Lace night out */
-    { pics: [66, 64, 53] },      /* 4 Costumes */
-    { pics: [61, 57, 51] },      /* 5 View from the top */
-    { pics: [50, 49] },          /* 6 Nails day */
-    { pics: ["v2", 45, 43] },    /* 7 Night walk, Marina Bay Sands */
-    { pics: [42, 41] },          /* 8 Rooftop pool */
-    { pics: [38, 36, 26] },      /* 9 The field with the skyline */
-    { pics: [34, 33, 31] },      /* 10 Street and mirror selfies */
-    { pics: [30, 29, 28] },      /* 11 Prosecco club */
-    { pics: [24, 22, 20] },      /* 12 Campus days */
-    { pics: ["v1", 15, 4] },     /* 13 Red club lights */
-    { pics: [13, 11, 9] },       /* 14 Alkaff Mansion */
-    { pics: [12, 8] },           /* 15 Friends */
-    { pics: [3, 1] }             /* 16 Rooftop bar */
+    { pics: [13, 11] },          /* 1 Alkaff Mansion */
+    { pics: [7, 9] },            /* 2 Alkaff Mansion */
+    { pics: [101, 16, 18] },     /* 3 Merlion (gagi), Marina Bay, hawker centre */
+    { pics: ["v2", 45, 43] },    /* 4 Night walk, Marina Bay Sands */
+    { pics: [38, 36, 26] },      /* 5 The field with the skyline */
+    { pics: [42, 41] },          /* 6 Rooftop pool */
+    { pics: [50, 49] },          /* 7 Nails day */
+    { pics: [5, 6] },            /* 8 Welcome party */
+    { pics: [84, 77, 73] },      /* 9 Lace night out */
+    { pics: [66, 64, 53] },      /* 10 Costumes */
+    { pics: [61, 57, 51] },      /* 11 View from the top */
+    { pics: [34, 33, 31] },      /* 12 Street and mirror selfies */
+    { pics: [30, 29, 28] },      /* 13 Prosecco club */
+    { pics: [24, 22, 20] },      /* 14 Campus days */
+    { pics: ["v1", 15, 4] },     /* 15 Red club lights */
+    { pics: [12, 8] },           /* 16 Friends */
+    { pics: [3, 1] },            /* 17 Rooftop bar */
+    { pics: [93, 97, 100] }      /* 18 Dinner (last page) */
   ].map(function (p, i) { p.n = i + 1; p.text = p.text || "fill in ur text here"; return p; });
   /* The intro note is tucked in right after the cover, so she can always find it again */
-  var PAGES = [{ cover: true }, { intro: true }].concat(BOOK).concat([{ back: true }]);
+  var PAGES = [{ cover: true }, { intro: true }].concat(BOOK).concat([{ end: true }, { back: true }]);
+  /* Each photo's main colour (worked out from the photos), used to colour its page */
+  var TINT = {"13":[130,112,86],"11":[111,92,62],"7":[107,90,61],"9":[128,109,77],"101":[171,151,143],"16":[108,143,181],"18":[133,100,79],"v2":[143,109,96],"45":[74,80,59],"43":[137,126,99],"38":[88,71,65],"36":[69,63,51],"26":[25,25,13],"42":[193,93,89],"41":[122,106,70],"50":[167,138,121],"49":[162,123,104],"5":[150,114,89],"6":[141,132,118],"84":[127,98,95],"77":[149,114,96],"73":[157,132,114],"66":[179,128,103],"64":[148,114,77],"53":[122,86,60],"61":[168,132,109],"57":[109,86,79],"51":[117,101,79],"34":[158,123,92],"33":[135,112,77],"31":[157,120,92],"30":[120,27,128],"29":[145,29,69],"28":[80,19,43],"24":[166,164,176],"22":[143,130,101],"20":[146,120,99],"v1":[100,6,14],"15":[128,18,46],"4":[171,53,47],"12":[160,130,106],"8":[125,105,92],"3":[104,97,78],"1":[152,82,116],"93":[155,142,119],"97":[166,132,108],"100":[152,112,94]};
+  function hsl(rgb) {
+    var r = rgb[0] / 255, g = rgb[1] / 255, b = rgb[2] / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), h = 0, l = (mx + mn) / 2, d = mx - mn, s = 0;
+    if (d) {
+      s = d / (1 - Math.abs(2 * l - 1));
+      h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+      h = (h * 60 + 360) % 360;
+    }
+    return [h, s];
+  }
+  function pageColours(p) {
+    var t = [0, 0, 0], k = 0;
+    p.pics.forEach(function (n) { var c = TINT[String(n)]; if (c) { t[0] += c[0]; t[1] += c[1]; t[2] += c[2]; k++; } });
+    var hs = k ? hsl([t[0] / k, t[1] / k, t[2] / k]) : [345, .5], h = Math.round(hs[0]), sat = Math.min(.8, Math.max(.45, hs[1] * 1.5));
+    return "--pg: hsl(" + h + " " + Math.round(sat * 100) + "% 87%); --dc: hsl(" + h + " " + Math.round(sat * 75) + "% 52%); --dot: hsl(" + h + " 45% 62% / .4)";
+  }
+  /* Little otters, flowers and hearts in the page margins; three layouts that take turns */
+  var DECO = [
+    [["otter", "top: .8%; left: 1%", 28, -12], ["heart", "top: 1.4%; right: 2.4%", 18, 14], ["flower", "top: 46%; right: .4%", 20, 0], ["flower", "bottom: .8%; left: 47%", 18, 0], ["heart", "bottom: 1%; left: 60%", 13, -10]],
+    [["flower", "top: .8%; left: 1.6%", 22, 0], ["heart", "top: 40%; left: .5%", 16, -10], ["otter", "top: .6%; right: 1.6%", 28, 10], ["heart", "bottom: 1.2%; right: 40%", 15, 8], ["flower", "bottom: .8%; right: 52%", 14, 0]],
+    [["heart", "top: 1.2%; left: 2.6%", 17, -8], ["flower", "top: .8%; right: 1.8%", 22, 0], ["otter", "bottom: .6%; left: 44%", 26, -6], ["flower", "top: 56%; left: .4%", 18, 0], ["heart", "top: 1.4%; left: 48%", 12, 12]]
+  ];
+  function decoHTML(k) {
+    return DECO[k % DECO.length].map(function (d) {
+      return '<svg class="deco" aria-hidden="true" style="' + d[1] + '; width: ' + d[2] + 'px; height: ' + d[2] + 'px; transform: rotate(' + d[3] + 'deg)"><use href="#i-' + d[0] + '"/></svg>';
+    }).join("");
+  }
+  var CORNER = '<use href="#i-flower" x="2" y="2" width="44" height="44" style="color: #fffaf5"/><use href="#i-flower" x="46" y="0" width="24" height="24" style="color: #fde3ea"/><use href="#i-flower" x="0" y="46" width="24" height="24" style="color: #fde3ea"/><use href="#i-heart" x="42" y="40" width="15" height="15" style="color: #fff0f4"/>';
+  function cornersHTML() { return ["tl", "tr", "bl", "br"].map(function (c) { return '<svg class="cfl ' + c + '" viewBox="0 0 100 100" aria-hidden="true">' + CORNER + '</svg>'; }).join(""); }
   function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function pageHTML(i, side) {
     var p = PAGES[i];
     if (!p) return '<div class="page ' + side + ' blank"></div>';
-    if (p.cover) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-otter"/></svg><span class="t">' + esc(TEXTS.cover) + '</span><span class="s">our time in singapore</span></div>';
+    if (p.cover) return '<div class="page ' + side + ' cover">' + cornersHTML() + '<svg class="icon" aria-hidden="true"><use href="#i-otter"/></svg><span class="t">' + esc(TEXTS.cover) + '</span><span class="s">our time in singapore</span><svg class="icon cheart" aria-hidden="true"><use href="#i-heart"/></svg></div>';
+    if (p.end) return '<div class="page ' + side + ' tinted endpage" style="--pg: hsl(345 62% 94%); --dc: hsl(345 50% 66%); --dot: hsl(345 45% 72% / .35)">' + decoHTML(1) +
+      '<div class="end-in"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><p class="end-text">' + esc(TEXTS.end) + '</p>' +
+      (TEXTS["end quote"] ? '<p class="end-quote">' + esc(TEXTS["end quote"]) + '</p>' : '') + '</div></div>';
     if (p.intro) return '<div class="page ' + side + ' intro-page"><div class="insert-wrap"><span class="tape-l" aria-hidden="true"></span><span class="tape-r" aria-hidden="true"></span><div class="insert"><p class="insert-head">read me first</p>' +
       String(TEXTS.intro).split(/\n\s*\n/).map(function (t) { return '<p class="para">' + esc(t.trim()) + '</p>'; }).join("") + '</div></div></div>';
     if (p.back) return '<div class="page ' + side + ' cover"><svg class="icon" aria-hidden="true"><use href="#i-bow"/></svg><span class="s" style="white-space: pre-line">' + esc(TEXTS.back) + '</span></div>';
@@ -1810,7 +1870,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
       if (typeof n === "string") return open + ' role="button" aria-label="Play video"><video src="videos/' + n + '.mp4" poster="videos/' + n + '.jpg" playsinline preload="none"></video><span class="vplay"></span></span>';
       return open + '><img src="' + photoSrc(n) + '" alt="" loading="lazy"></span>';
     }).join("");
-    return '<div class="page ' + side + '"><div class="pics n' + p.pics.length + '">' + imgs + '</div><p class="ptext">' + esc(TEXTS["page " + p.n] || p.text) + '</p><span class="pnum">' + p.n + '</span></div>';
+    return '<div class="page ' + side + ' tinted" style="' + pageColours(p) + '">' + decoHTML(p.n) + '<div class="pics n' + p.pics.length + '">' + imgs + '</div><p class="ptext">' + esc(TEXTS["page " + p.n] || p.text) + '</p><span class="pnum">' + p.n + '</span></div>';
   }
   var bookEl = $("book"), spreadEl = $("spread"), single = false, at = 0, turning = false;
   /* spreads: 0 = cover on the right; k = pages 2k-1 and 2k */
@@ -2012,7 +2072,7 @@ footer .wrap { padding-block: 48px 40px; display: flex; align-items: center; gap
   syncPreview();
 
   /* ---------- Texts: typed into texts.txt (editable on GitHub), read when the page opens ---------- */
-  var TEXTS = { cover: "picture book", back: "fill in ur text here", intro: "fill in ur text here" };
+  var TEXTS = { cover: "Picture Book", back: "fill in ur text here", intro: "fill in ur text here", end: "fill in ur text here", "end quote": "" };
   function readTexts(raw) {
     var key = null, buf = [], out = {};
     function flush() { if (key) out[key] = buf.join("\n").trim(); buf = []; }
